@@ -1,0 +1,14 @@
+/AncestorAxisIterator.java///1231425689////
+/AncestorOrSelfAxisIterator.java///1231425689////
+/AttributeIterator.java///1231425689////
+/ChildAxisIterator.java///1231425689////
+/DescendantAxisIterator.java///1231425689////
+/DescendantOrSelfAxisIterator.java///1231425689////
+/FollowingAxisIterator.java///1231425689////
+/FollowingSiblingAxisIterator.java///1231425689////
+/NamespaceAxisIterator.java///1231425689////
+/ParentAxisIterator.java///1231425689////
+/PrecedingAxisIterator.java///1231425689////
+/PrecedingSiblingAxisIterator.java///1231425689////
+/SelfAxisIterator.java///1231425689////
+/SingleNodeIterator.java///1231425689////

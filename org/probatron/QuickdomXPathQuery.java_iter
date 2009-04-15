@@ -1,0 +1,111 @@
+/*
+ * Created on 08-Jun-2004
+ *
+ * To change the template for this generated file go to
+ * Window>Preferences>Java>Code Generation>Code and Comments
+ */
+package com.xmlprobe;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import org.jaxen.JaxenException;
+import org.w3c.dom.Document;
+
+import com.griffinbrown.xmltool.Extension;
+import com.griffinbrown.xmltool.XMLToolException;
+import com.griffinbrown.xmltool.XPathQAHandler;
+
+/*
+ * EXPERIMENTAL!!!
+ * */
+class QuickdomXPathQuery extends XPathQuery
+{
+	private QuickdomXPath xpath;
+	private XPathQAHandler owner;
+	private Node expression;
+		
+	QuickdomXPathQuery( Node id, Node expression, ArrayList wellBalanced, Extension owner )
+	{
+		super( id, expression, wellBalanced, owner );
+		this.owner = (XPathQAHandler)owner;
+		this.expression = expression;
+	}
+
+	ArrayList evaluate( Document doc ) throws XMLToolException
+	{
+		long t = 0L;
+		if( owner.isTimingEval() )
+		{
+			t = new Date().getTime();
+		}
+		
+		//construct an XPath expression
+		xpath = null;
+		try
+		{
+			xpath = new QuickdomXPath( getValue() );			
+			xpath.setNamespaceContext( owner.namespaceContext() );
+			xpath.setFunctionContext( owner.functionContext() );
+		}
+		catch (JaxenException e)
+		{
+			throw new XMLToolException( "JaxenException: error in XPath expression [ID='"+
+				getErrorType() + "']: " 
+				+ e.getMessage() + " expression='"	+ getValue() + "'" );
+		}
+		
+		//add any namespaces if necessary
+		try
+		{
+			for( Iterator i = owner.namespacePrefixes().iterator(); i.hasNext(); )
+			{
+				String prefix = (String)i.next();
+				xpath.addNamespace( prefix, owner.getUriForPrefix( prefix ) );
+			}
+			
+		}
+		catch (JaxenException e)
+		{
+			throw new XMLToolException( "JaxenException adding namespace: " 
+				+ e.getMessage() );
+		}
+		
+		//evaluate the XPath expression
+		Object o = null;		
+		try
+		{
+			o = xpath.evaluate( doc );
+		}
+		catch (JaxenException e)
+		{
+			throw new XMLToolException( "JaxenException evaluating XPath expression [ID='" +
+				getErrorType() + "'] at " + expression.getUniquePath() + ": '" 
+				+ getValue() + "' " + e.getMessage() );
+		}
+		
+		ArrayList results = new ArrayList();
+		
+		if( owner.isTimingEval() ) t = new Date().getTime() - t;
+		
+		if( o instanceof List )	//iterate and create XPathResult for each
+		{
+			for( Iterator i = ((List)o).iterator(); i.hasNext(); )
+			{
+				XPathResult xpr = new XPathResult( i.next(), this, this.owner );
+				if( owner.isTimingEval() ) xpr.setEvaluationTime( t );
+				results.add( xpr );
+			}
+			return results;
+		}
+		else
+		{
+			XPathResult xpr = new XPathResult( o, this, this.owner );
+			if( owner.isTimingEval() ) xpr.setEvaluationTime( t );
+			results.add( xpr ); 
+			return results;
+		}
+	}			
+}

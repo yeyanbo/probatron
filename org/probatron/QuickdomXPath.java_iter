@@ -1,0 +1,19 @@
+/*
+ * Copyright (c) 2004 Griffin Brown Digital Publishing Ltd.
+ * All rights reserved.
+ */
+package com.xmlprobe;
+
+import org.jaxen.BaseXPath;
+import org.jaxen.JaxenException;
+
+/**
+ * An XPath implementation for the Quickdom model.
+ */
+public class QuickdomXPath extends BaseXPath
+{
+	QuickdomXPath( String xpathExpr )	throws JaxenException
+	{
+		super( xpathExpr, QuickdomNavigator.getInstance() );
+	}
+}

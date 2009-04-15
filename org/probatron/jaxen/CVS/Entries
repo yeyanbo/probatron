@@ -1,0 +1,29 @@
+D/pattern////
+D/util////
+D/xpath2////
+D/expr////
+D/function////
+D/saxpath////
+/AbsolutizingJaxenHandler.java/1.1/Tue Jan 13 10:42:33 2009/-kkv/
+/Context.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/ContextSupport.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/Function.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/FunctionCallException.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/FunctionContext.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/JaxenConstants.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/JaxenException.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/JaxenHandler.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/JaxenRuntimeException.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/NamedAccessNavigator.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/NamespaceContext.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/Navigator.java/1.1/Wed Feb 11 08:52:55 2009/-kkv/
+/QualifiedName.java/1.1/Wed Feb 11 08:52:56 2009/-kkv/
+/SimpleFunctionContext.java/1.1/Wed Feb 11 08:52:56 2009/-kkv/
+/SimpleNamespaceContext.java/1.1/Wed Feb 11 08:52:56 2009/-kkv/
+/SimpleVariableContext.java/1.1/Wed Feb 11 08:52:56 2009/-kkv/
+/UnresolvableException.java/1.1/Wed Feb 11 08:52:56 2009/-kkv/
+/UnsupportedAxisException.java/1.1/Wed Feb 11 08:52:56 2009/-kkv/
+/VariableContext.java/1.1/Wed Feb 11 08:52:56 2009/-kkv/
+/XPath.java/1.1/Wed Feb 11 08:52:56 2009/-kkv/
+/XPathFunctionContext.java/1.1/Wed Feb 11 08:52:56 2009/-kkv/
+/XPathSyntaxException.java/1.1/Wed Feb 11 08:52:56 2009/-kkv/
