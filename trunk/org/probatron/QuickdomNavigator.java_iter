@@ -1,0 +1,908 @@
+/*
+ * Copyright (c) 2003 Griffin Brown Digital Publishing Ltd.
+ * All rights reserved.
+ */
+package com.xmlprobe;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+import org.jaxen.FunctionCallException;
+import org.jaxen.Navigator;
+import org.jaxen.UnsupportedAxisException;
+import org.jaxen.XPath;
+import org.jaxen.dom.NamespaceNode;
+import org.jaxen.pattern.Pattern;
+import org.jaxen.util.AncestorAxisIterator;
+import org.jaxen.util.AncestorOrSelfAxisIterator;
+import org.jaxen.util.DescendantAxisIterator;
+import org.jaxen.util.DescendantOrSelfAxisIterator;
+import org.jaxen.util.SelfAxisIterator;
+import org.saxpath.SAXPathException;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.NodeList;
+
+import com.griffinbrown.xmltool.quickdom.NodeImpl;
+
+/**
+ * @author andrews
+ *
+ * Class to represent 
+ */
+public class QuickdomNavigator implements Navigator
+{
+	private static final QuickdomNavigator INSTANCE = new QuickdomNavigator(); 
+	
+	/**
+	 * Constant: empty iterator.
+	 */
+	private final static Iterator EMPTY_ITERATOR = new HashMap().values().iterator();
+
+	/**
+	 * Default constructor.
+	 *
+	 */
+	private QuickdomNavigator(){}
+	
+	public static QuickdomNavigator getInstance()
+	{
+		return INSTANCE;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getAncestorAxisIterator(java.lang.Object)
+	 */
+	public Iterator getAncestorAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{
+		return new AncestorAxisIterator(obj, this);
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getAncestorOrSelfAxisIterator(java.lang.Object)
+	 */
+	public Iterator getAncestorOrSelfAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{
+		return new AncestorOrSelfAxisIterator(obj, this);
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getAttributeAxisIterator(java.lang.Object)
+	 */
+	public Iterator getAttributeAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{
+		if (isElement(obj))
+		{
+//			//System.err.println("getAttributeAxisIterator()");
+			return new AttributeIterator((org.w3c.dom.Node)obj);
+		}
+		else
+		{
+			return EMPTY_ITERATOR;
+		}		
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getAttributeName(java.lang.Object)
+	 */
+	public String getAttributeName(Object obj)
+	{
+		NodeImpl node = (NodeImpl)obj;
+		String name = (String)node.doc.strings.get( 
+			new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.LOCAL_NAME_OFFSET ) )
+			);
+		if (name == null)
+			name = (String)node.doc.strings.get( 
+		new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NODE_NAME_OFFSET ) )
+		);
+		return name;		
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getAttributeNamespaceUri(java.lang.Object)
+	 */
+	public String getAttributeNamespaceUri(Object obj)
+	{
+		NodeImpl node = (NodeImpl)obj;
+		return (String)node.doc.strings.get( 
+					new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.URI_OFFSET ) )
+					);
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getAttributeQName(java.lang.Object)
+	 */
+	public String getAttributeQName(Object obj)
+	{
+		NodeImpl node = (NodeImpl)obj;
+		String name = (String)node.doc.strings.get( 
+			new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NODE_NAME_OFFSET ) )
+			);
+		if (name == null)
+			name = (String)node.doc.strings.get( 
+		new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.LOCAL_NAME_OFFSET ) )
+		);
+		return name;	
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getAttributeStringValue(java.lang.Object)
+	 */
+	public String getAttributeStringValue(Object obj)
+	{
+		if (isAttribute(obj))
+		{
+			NodeImpl node = (NodeImpl)obj;
+			return (String)node.doc.strings.get(
+				new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NODE_NAME_OFFSET ) ) );
+		}
+		else
+			return null;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getChildAxisIterator(java.lang.Object)
+	 */
+	public Iterator getChildAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{
+//		//System.err.println("getChildAxisIterator()");
+		return new NodeIterator( (NodeImpl)obj ) 
+		{
+			protected NodeImpl getFirstNode (NodeImpl node)
+			{
+				int first = node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.FIRST_CHILD_OFFSET);
+				
+//				//System.err.println("i am "+node.id+" my first child is "+first);
+				
+				return first == -1
+					? null
+					: new NodeImpl( node.doc, first );
+			}
+			protected NodeImpl getNextNode (NodeImpl node)
+			{
+				int next = node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NEXT_SIBLING_OFFSET );
+				return next == -1
+					? null
+					: new NodeImpl( node.doc, next );
+			}
+		};
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getCommentStringValue(java.lang.Object)
+	 */
+	public String getCommentStringValue(Object obj)
+	{//System.err.println("getCommentStringValue()");
+		if (isComment(obj))
+		{
+			NodeImpl node = (NodeImpl)obj;
+			return (String)node.doc.strings.get(
+				new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NODE_VALUE_OFFSET ) ) );
+		}
+		else
+			return null;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getDescendantAxisIterator(java.lang.Object)
+	 */
+	public Iterator getDescendantAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{//System.err.println("getDescendantAxisIterator()");
+		return new DescendantAxisIterator( obj, this );
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getDescendantOrSelfAxisIterator(java.lang.Object)
+	 */
+	public Iterator getDescendantOrSelfAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{
+		return new DescendantOrSelfAxisIterator( obj, this );
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getDocument(java.lang.String)
+	 */
+	public Object getDocument(String string) throws FunctionCallException
+	{
+//		TODO use com.xmlprobe.DocumentNavigator
+		return null;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getDocumentNode(java.lang.Object)
+	 */
+	public Object getDocumentNode(Object contextNode)
+	{
+		if (isDocument(contextNode))
+		{
+			return contextNode;	
+		}
+		else
+			return ((NodeImpl)contextNode).doc;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getElementById(java.lang.Object, java.lang.String)
+	 */
+	public Object getElementById(Object obj, String id)
+	{
+		//TODO check this works!
+		Document doc = (Document)getDocumentNode(obj);
+		if (doc != null)
+			return doc.getElementById(id);
+		else
+			return null;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getElementName(java.lang.Object)
+	 */
+	public String getElementName(Object obj)
+	{//System.err.println("getElementName()");
+		NodeImpl node = (NodeImpl)obj;
+		
+		//System.err.println( node );		
+		
+		String name = (String)node.doc.strings.get( 
+						new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.LOCAL_NAME_OFFSET ) )
+			);
+		if (name == null)
+			name = (String)node.doc.strings.get( 
+						new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NODE_NAME_OFFSET ) )
+		);
+		return name;	
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getElementNamespaceUri(java.lang.Object)
+	 */
+	public String getElementNamespaceUri(Object obj)
+	{//System.err.println("getElementNamespaceUri()");
+		NodeImpl node = (NodeImpl)obj;
+		return (String)node.doc.strings.get( 
+					new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.URI_OFFSET ) )
+					);
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getElementQName(java.lang.Object)
+	 */
+	public String getElementQName(Object obj)
+	{//System.err.println("getElementQName()");
+		NodeImpl node = (NodeImpl)obj;
+		String name = (String)node.doc.strings.get( 
+			new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NODE_NAME_OFFSET ) )
+			);
+		if (name == null)
+			name = (String)node.doc.strings.get( 
+		new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.LOCAL_NAME_OFFSET ) )
+		);
+		return name;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getElementStringValue(java.lang.Object)
+	 */
+	public String getElementStringValue(Object obj)
+	{//System.err.println("getElemntStringValue()");
+		if (isElement(obj))
+			return getStringValue((org.w3c.dom.Node)obj, new StringBuffer()).toString();
+		else
+			return null;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getFollowingAxisIterator(java.lang.Object)
+	 */
+	public Iterator getFollowingAxisIterator(Object contextNode)
+		throws UnsupportedAxisException
+	{//System.err.println("getFollowingAxisIterator()");
+		return new NodeIterator( (NodeImpl)contextNode )
+		{
+			protected NodeImpl getFirstNode (NodeImpl node)
+			{
+				if (node == null)
+					return null;
+				else
+				{
+					int sibling = node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NEXT_SIBLING_OFFSET );
+					if (sibling == -1)
+						return getFirstNode( 
+							new NodeImpl( node.doc, 
+								node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.PARENT_OFFSET ) ) );
+					else
+						return new NodeImpl( node.doc, sibling );
+				}
+			}
+			protected NodeImpl getNextNode (NodeImpl node) {
+				if (node == null)
+					return null;
+				else
+				{
+					int next = node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.FIRST_CHILD_OFFSET );
+					if ( next == -1 )
+						next = node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NEXT_SIBLING_OFFSET );
+					if ( next == -1 )
+						return getFirstNode( 
+							new NodeImpl( node.doc, 
+								node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.PARENT_OFFSET ) ) );
+					else
+						return new NodeImpl( node.doc, next );
+				}
+			}
+		};
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getFollowingSiblingAxisIterator(java.lang.Object)
+	 */
+	public Iterator getFollowingSiblingAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{//System.err.println("getFollowingSiblingAxisIterator()");
+		return new NodeIterator( (NodeImpl)obj )
+		{
+			protected NodeImpl getFirstNode(NodeImpl contextNode)
+			{
+				return getNextNode( contextNode );
+			}
+
+			protected NodeImpl getNextNode(NodeImpl node)
+			{
+				int next = node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NEXT_SIBLING_OFFSET );
+				if( next == -1 )
+					return null;
+				else
+					return new NodeImpl( node.doc, next );
+			}
+		};
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getNamespaceAxisIterator(java.lang.Object)
+	 */
+	public Iterator getNamespaceAxisIterator(Object contextNode)
+	{//System.err.println("getNamespaceAxisIterator()");
+		// Only elements have Namespace nodes
+		if( isElement( contextNode ) )
+		{
+			HashMap nsMap = new HashMap();
+
+			// Start at the current node and walk
+			// up to the root, noting what Namespace
+			// declarations are in force.
+			for ( NodeImpl n = (NodeImpl)contextNode; n != null;
+					n = n.doc.nibs.itemAt( (n.id*n.NIB_SIZE) + NodeImpl.PARENT_OFFSET ) != -1 
+						? new NodeImpl( n.doc, n.doc.nibs.itemAt( (n.id*n.NIB_SIZE) + NodeImpl.PARENT_OFFSET ) )
+						: null )
+			{
+				if( ( n.doc.nibs.itemAt( (n.id*n.NIB_SIZE) ) & NodeImpl.HAS_ATTRIBUTES_MASK ) != 0 )	//has atts?
+				{
+					NamedNodeMap atts = n.getAttributes();
+					int length = atts.getLength();
+					for ( int i = 0; i < length; i++ )
+					{
+						org.w3c.dom.Node att = atts.item(i);
+						String name = att.getNodeName();
+						if( name.startsWith( "xmlns" ) )
+						{
+							NamespaceNode ns = 
+								new NamespaceNode( (org.w3c.dom.Node)contextNode, 
+									name.substring( 6 ), att.getNodeValue() );
+							// Add only if there's not a closer
+							// declaration in force.
+							String nsName = ns.getNodeName();
+							if ( ! nsMap.containsKey( nsName ) )
+								nsMap.put( nsName, ns );
+						}
+					}
+				}
+			}
+			// Section 5.4 of the XPath rec requires
+			// this to be present.
+			nsMap.put( "xml",
+					   new
+					   NamespaceNode( (org.w3c.dom.Node)contextNode,
+									 "xml",
+									 "http://www.w3.org/XML/1998/namespace" ) );
+
+			// An empty default Namespace cancels
+			// any previous default.
+			NamespaceNode defaultNS = ( NamespaceNode )nsMap.get( "" );
+			if ( defaultNS != null && defaultNS.getNodeValue().equals( "" ) )
+				nsMap.remove( "" );
+			return nsMap.values().iterator();
+		}
+		else
+		{
+			return EMPTY_ITERATOR;
+		}
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getNamespacePrefix(java.lang.Object)
+	 */
+	public String getNamespacePrefix(Object obj)
+	{//System.err.println("getNamespacePrefix()");
+		if (isNamespace(obj))
+			return ((NamespaceNode)obj).getLocalName();
+		else
+			return null;		
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getNamespaceStringValue(java.lang.Object)
+	 */
+	public String getNamespaceStringValue(Object object)
+	{//System.err.println("getNamespaceStringValue()");
+		if (isNamespace(object))
+			return ((NamespaceNode)object).getNodeValue();
+		else
+			return null;		
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getNodeType(java.lang.Object)
+	 */
+	public short getNodeType(Object node)
+	{//System.err.println("getNodeType()");
+		if ( isElement(node) ) 
+		{
+			return Pattern.ELEMENT_NODE;
+		}
+		else if ( isAttribute(node) ) 
+		{
+			return Pattern.ATTRIBUTE_NODE;
+		}
+		else if ( isText(node) ) 
+		{
+			return Pattern.TEXT_NODE;
+		}
+		else if ( isComment(node) ) 
+		{
+			return Pattern.COMMENT_NODE;
+		}
+		else if ( isDocument(node) ) 
+		{
+			return Pattern.DOCUMENT_NODE;
+		}
+		else if ( isProcessingInstruction(node) ) 
+		{
+			return Pattern.DOCUMENT_NODE;
+		}
+		else
+		{
+			return Pattern.UNKNOWN_NODE;
+		}
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getParentAxisIterator(java.lang.Object)
+	 */
+	public Iterator getParentAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{//System.err.println("getParentAxisIterator()");
+		return new NodeIterator( (NodeImpl)obj )
+		{
+			protected NodeImpl getFirstNode(NodeImpl contextNode)
+			{
+				return new NodeImpl( contextNode.doc, 
+					contextNode.doc.nibs.itemAt( (contextNode.id*contextNode.NIB_SIZE) + NodeImpl.PARENT_OFFSET ) );
+			}
+
+			protected NodeImpl getNextNode(NodeImpl contextNode)
+			{
+				return null;
+			}
+		};
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getParentNode(java.lang.Object)
+	 */
+	public Object getParentNode(Object obj) throws UnsupportedAxisException
+	{//System.err.println("getParentNode()");
+		NodeImpl node = (NodeImpl)obj;
+		int parent = node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.PARENT_OFFSET ); 
+
+		return parent != -1
+			? new NodeImpl( node.doc, parent )
+			: null;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getPrecedingAxisIterator(java.lang.Object)
+	 */
+	public Iterator getPrecedingAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{//System.err.println("getPrecedingAxisIterator");
+		return new NodeIterator( (NodeImpl)obj )
+		{
+			protected NodeImpl getFirstNode(NodeImpl contextNode)
+			{
+				if( contextNode == null )
+					return null;
+				else
+				{
+					int sibling = 
+						contextNode.doc.nibs.itemAt( (contextNode.id*contextNode.NIB_SIZE) + NodeImpl.PREVIOUS_SIBLING_OFFSET );
+					if( sibling == -1 )	//recurse over parent etc.
+						return getFirstNode( 
+							new NodeImpl( contextNode.doc, 
+								contextNode.doc.nibs.itemAt( (contextNode.id*contextNode.NIB_SIZE) + NodeImpl.PARENT_OFFSET ) ) );
+					else
+						return new NodeImpl( contextNode.doc, sibling );
+				}
+			}
+
+			protected NodeImpl getNextNode(NodeImpl contextNode)
+			{
+				if( contextNode == null )
+					return null;
+				else
+				{
+					int n = 
+						contextNode.doc.nibs.itemAt( (contextNode.id*contextNode.NIB_SIZE) + NodeImpl.LAST_CHILD_OFFSET );
+					if( n == -1 )
+						n = contextNode.doc.nibs.itemAt( (contextNode.id*contextNode.NIB_SIZE) + NodeImpl.PREVIOUS_SIBLING_OFFSET );
+					if( n == -1 )
+						return getFirstNode( 
+							new NodeImpl( contextNode.doc, 
+								contextNode.doc.nibs.itemAt( (contextNode.id*contextNode.NIB_SIZE) + NodeImpl.PARENT_OFFSET ) ) );
+					else
+						return new NodeImpl( contextNode.doc, n );
+
+				}
+			}
+		};
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getPrecedingSiblingAxisIterator(java.lang.Object)
+	 */
+	public Iterator getPrecedingSiblingAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{//System.err.println("getPrecedingSiblingAxisIterator()");
+		return new NodeIterator( (NodeImpl)obj )
+		{
+			protected NodeImpl getFirstNode(NodeImpl contextNode)
+			{
+				return getNextNode( contextNode );
+			}
+
+			protected NodeImpl getNextNode(NodeImpl contextNode)
+			{
+				int prev = contextNode.doc.nibs.itemAt( (contextNode.id*contextNode.NIB_SIZE) + NodeImpl.PREVIOUS_SIBLING_OFFSET );
+				if( prev == -1 )
+					return null;
+					
+				return new NodeImpl( contextNode.doc, prev ); 
+			}
+		};
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getProcessingInstructionData(java.lang.Object)
+	 */
+	public String getProcessingInstructionData(Object obj)
+	{//System.err.println("getProcessingInstructionData");
+		org.w3c.dom.ProcessingInstruction pi = (org.w3c.dom.ProcessingInstruction) obj;
+
+		return pi.getData();
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getProcessingInstructionTarget(java.lang.Object)
+	 */
+	public String getProcessingInstructionTarget(Object obj)
+	{//System.err.println("getProcessingInstructionTargert()");
+		org.w3c.dom.ProcessingInstruction pi = (org.w3c.dom.ProcessingInstruction) obj;
+
+		return pi.getTarget();
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getSelfAxisIterator(java.lang.Object)
+	 */
+	public Iterator getSelfAxisIterator(Object obj)
+		throws UnsupportedAxisException
+	{
+//		//System.err.println("getSelfAxisIterator()");
+		return new SelfAxisIterator( obj );
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#getTextStringValue(java.lang.Object)
+	 */
+	public String getTextStringValue( Object object )
+	{
+		if ( isText( object ) )
+		{
+			NodeImpl node = (NodeImpl)object;
+			return (String)node.doc.strings.get(
+				new Integer( node.doc.nibs.itemAt( (node.id*node.NIB_SIZE) + NodeImpl.NODE_VALUE_OFFSET ) ) );
+		}
+		return null;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#isAttribute(java.lang.Object)
+	 */
+	public boolean isAttribute(Object obj)
+	{
+		if(obj instanceof NamespaceNode)	return false;
+		
+		NodeImpl node = (NodeImpl)obj;
+		//System.err.println("isAttribute()");
+		return ( node.doc.nibs.itemAt(node.id*node.NIB_SIZE) & NodeImpl.NODE_TYPE_MASK ) 
+			== org.w3c.dom.Node.ATTRIBUTE_NODE;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#isComment(java.lang.Object)
+	 */
+	public boolean isComment(Object obj)
+	{
+		if(obj instanceof NamespaceNode)	return false;
+		
+		NodeImpl node = (NodeImpl)obj;
+
+		return ( node.doc.nibs.itemAt(node.id*node.NIB_SIZE) & NodeImpl.NODE_TYPE_MASK ) 
+			== org.w3c.dom.Node.COMMENT_NODE;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#isDocument(java.lang.Object)
+	 */
+	public boolean isDocument(Object obj)
+	{
+		if(obj instanceof NamespaceNode)	return false;
+		
+		NodeImpl node = (NodeImpl)obj;
+		return ( node.doc.nibs.itemAt(node.id*node.NIB_SIZE) & NodeImpl.NODE_TYPE_MASK )
+			== org.w3c.dom.Node.DOCUMENT_NODE;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#isElement(java.lang.Object)
+	 */
+	public boolean isElement(Object obj)
+	{
+		if(obj instanceof NamespaceNode)	return false;
+		
+		NodeImpl node = (NodeImpl)obj;
+		return ( node.doc.nibs.itemAt(node.id*node.NIB_SIZE) & NodeImpl.NODE_TYPE_MASK ) 
+			== org.w3c.dom.Node.ELEMENT_NODE;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#isNamespace(java.lang.Object)
+	 */
+	public boolean isNamespace(Object obj)
+	{
+		return (obj instanceof NamespaceNode);
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#isProcessingInstruction(java.lang.Object)
+	 */
+	public boolean isProcessingInstruction(Object obj)
+	{
+		if(obj instanceof NamespaceNode)	return false;
+		
+		NodeImpl node = (NodeImpl)obj;
+		return ( node.doc.nibs.itemAt(node.id*node.NIB_SIZE) & NodeImpl.NODE_TYPE_MASK ) 
+			== org.w3c.dom.Node.PROCESSING_INSTRUCTION_NODE;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#isText(java.lang.Object)
+	 */
+	public boolean isText(Object obj)
+	{
+		if(obj instanceof NamespaceNode)	return false;
+		
+		NodeImpl node = (NodeImpl)obj;
+		return ( node.doc.nibs.itemAt(node.id*node.NIB_SIZE) & NodeImpl.NODE_TYPE_MASK ) 
+			== org.w3c.dom.Node.TEXT_NODE;
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#parseXPath(java.lang.String)
+	 */
+	public XPath parseXPath(String expr) throws SAXPathException
+	{
+		return new QuickdomXPath( expr );
+	}
+
+	/**
+	 * @see org.jaxen.Navigator#translateNamespacePrefixToUri(java.lang.String, java.lang.Object)
+	 */
+	public String translateNamespacePrefixToUri(String prefix, Object element)
+	{
+		Iterator it = getNamespaceAxisIterator(element);
+		while ( it.hasNext() )
+		{
+			NamespaceNode ns = (NamespaceNode)it.next();
+			if ( prefix.equals( ns.getNodeName() ) )
+				return ns.getNodeValue();
+		}
+		return null;
+	}
+	
+	private StringBuffer getStringValue( org.w3c.dom.Node node, StringBuffer s )
+	{
+		if (isText(node))
+		{
+			s.append(node.getNodeValue());
+		}
+		else 
+		{
+			NodeList children = node.getChildNodes();
+			int length = children.getLength();
+			for (int i = 0; i < length; i++)
+				getStringValue(children.item(i), s);
+		}
+		return s;
+	}
+	
+	class AttributeIterator implements Iterator
+	{
+		private org.w3c.dom.Node parent;
+		private NamedNodeMap map;
+		private int pos;
+		
+		AttributeIterator (org.w3c.dom.Node parent)
+		{
+			this.parent = parent;
+			this.map = parent.getAttributes();
+			this.pos = 0;
+//			//System.err.println("AttributeIterator!");
+//			//System.err.println("parent="+parent);
+//			//System.err.println("NamedNodeMap="+map+"; size=" + map.getLength());
+		}
+
+
+		/**
+		 * @see Iterator#hasNext
+		 */
+		public boolean hasNext ()
+		{
+			return pos < map.getLength();
+		}
+
+
+		/**
+		 * @see Iterator#next
+		 */
+		public Object next ()
+		{
+			org.w3c.dom.Node attr = map.item(pos++);
+			if (attr == null)
+				throw new NoSuchElementException();
+			else
+				return attr;
+		}
+
+
+		/**
+		 * @see Iterator#remove
+		 */
+		public void remove ()
+		{
+			throw new UnsupportedOperationException();
+		}
+
+	}
+
+
+	abstract class NodeIterator implements Iterator
+	{
+		private NodeImpl node;
+
+		/**
+		 * Constructor.
+		 *
+		 * @param contextNode The starting node.
+		 */
+		public NodeIterator(NodeImpl contextNode)
+		{
+			node = getFirstNode(contextNode);
+			while (!isXPathNode(node))
+				node = getNextNode(node);
+		}
+
+
+		/**
+		 * @see Iterator#hasNext
+		 */
+		public boolean hasNext ()
+		{
+			return (node != null);
+		}
+
+
+		/**
+		 * @see Iterator#next
+		 */
+		public Object next ()
+		{
+			if (node == null)
+				throw new NoSuchElementException();
+			org.w3c.dom.Node ret = node;
+			node = getNextNode(node);
+			while (!isXPathNode(node))
+				node = getNextNode(node);
+			return ret;
+		}
+
+
+		/**
+		 * @see Iterator#remove
+		 */
+		public void remove ()
+		{
+			throw new UnsupportedOperationException();
+		}
+
+
+		/**
+		 * Get the first node for iteration.
+		 *
+		 * <p>This method must derive an initial node for iteration
+		 * from a context node.</p>
+		 *
+		 * @param contextNode The starting node.
+		 * @return The first node in the iteration.
+		 * @see #getNextNode
+		 */
+		protected abstract NodeImpl getFirstNode (NodeImpl contextNode);
+
+
+		/**
+		 * Get the next node for iteration.
+		 *
+		 * <p>This method must locate a following node from the
+		 * current context node.</p>
+		 *
+		 * @param contextNode The current node in the iteration.
+		 * @return The following node in the iteration, or null
+		 * if there is none.
+		 * @see #getFirstNode
+		 */
+		protected abstract NodeImpl getNextNode (NodeImpl contextNode);
+
+
+		/**
+		 * Test whether a DOM node is usable by XPath.
+		 *
+		 * @param node The DOM node to test.
+		 * @return true if the node is usable, false if it should be
+		 * skipped.
+		 */
+		private boolean isXPathNode (org.w3c.dom.Node node)
+		{
+			// null is usable, because it means end
+			if (node == null)
+				return true;
+
+			switch (node.getNodeType())
+			{
+				case org.w3c.dom.Node.DOCUMENT_FRAGMENT_NODE:
+				case org.w3c.dom.Node.DOCUMENT_TYPE_NODE:
+				case org.w3c.dom.Node.ENTITY_NODE:
+				case org.w3c.dom.Node.ENTITY_REFERENCE_NODE:
+				case org.w3c.dom.Node.NOTATION_NODE:
+					return false;
+				default:
+					return true;
+			}
+		}
+	}
+}

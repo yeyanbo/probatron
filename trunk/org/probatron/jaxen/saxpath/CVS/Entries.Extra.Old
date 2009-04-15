@@ -1,0 +1,9 @@
+D/base///////
+D/helpers///////
+/Axis.java///////
+/Operator.java///////
+/SAXPathEventSource.java///////
+/SAXPathException.java///////
+/XPathHandler.java///////
+/XPathReader.java///////
+/XPathSyntaxException.java///////

@@ -1,0 +1,21 @@
+/AbstractPattern.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/AbstractPatternInstance.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/AbstractRule.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/Assert.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/Constants.java/1.2/Wed Jan 14 15:24:18 2009/-kkv/
+/GlobalXPathVariable.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/LocalXPathVariable.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/NamespaceDeclaration.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/Param.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/Pattern.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/PatternImpl.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/Phase.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/Report.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/Rule.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/SchematronConfiguration.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/SchematronConfigurationProcessor.java/1.2/Wed Jan 14 14:32:04 2009/-kkv/
+/SchematronQuery.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/SchematronQueryResult.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/SchematronReportEmitter.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+/SchematronSchema.java/1.2/Wed Feb 11 08:52:52 2009/-kkv/
+D
