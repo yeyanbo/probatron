@@ -87,19 +87,22 @@
 package com.griffinbrown.xmltool;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.DTDHandler;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.ext.DeclHandler;
+import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.LocatorImpl;
 
-import com.griffinbrown.jing.ext.SAXEventReceiver;
 import com.griffinbrown.xmltool.dtd.ElemTypeDecl;
 import com.griffinbrown.xmltool.utils.Utils;
 
 /**
  * The default content handler for all operations.
  */
-public class ContentHandler implements SAXEventReceiver
+public class ContentHandler implements ErrorHandler, org.xml.sax.ContentHandler, DTDHandler, LexicalHandler, DeclHandler//SAXEventReceiver
 {
     Locator locator;
     private Extension[] extensions; //add-ins (Extension impls)

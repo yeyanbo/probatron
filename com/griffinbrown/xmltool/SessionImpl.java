@@ -112,7 +112,7 @@ import org.xml.sax.XMLFilter;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import com.griffinbrown.jing.ext.ValidatePropertyExt;
+//import com.griffinbrown.jing.ext.ValidatePropertyExt;
 import com.griffinbrown.schematron.NamespaceDeclaration;
 import com.griffinbrown.schematron.SchematronConfiguration;
 import com.griffinbrown.schematron.SchematronReportEmitter;
@@ -768,7 +768,7 @@ public class SessionImpl implements Session
     private ValidationDriver createValidationDriver()
     {
         PropertyMapBuilder instanceProperties = new PropertyMapBuilder();
-        instanceProperties.put( ValidatePropertyExt.SAX_EVENT_RECEIVER, ch );
+//        instanceProperties.put( ValidatePropertyExt.SAX_EVENT_RECEIVER, ch );
         instanceProperties.put( ValidateProperty.XML_READER_CREATOR, new FilteredXMLReaderCreator() );
 
         ValidationDriver vd = new ValidationDriver( validatorProperties.toPropertyMap(),
