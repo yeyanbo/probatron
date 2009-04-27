@@ -209,7 +209,7 @@ public class SchematronAbstractRuleTest extends TestsBase
         assertEquals( 5, rule.getAssertions().size() );
         assertEquals( 2, rule.getVariables().size() ); //one of these is a DUPLICATE!        
 
-        String toTestFor = "XMLProbe:[FATAL]:duplicate variable name: ruleVar1\n";
+        String toTestFor = "Probatron:[FATAL]:duplicate variable name: ruleVar1\n";
 
         assertFileEquals( dest, toTestFor );
     }
