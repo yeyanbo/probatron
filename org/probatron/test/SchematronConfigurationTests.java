@@ -61,9 +61,9 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String startsWith = "XMLProbe:[FATAL]:Schematron schema is invalid: cannot proceed until schema errors are fixed";
+        String startsWith = "Probatron:[FATAL]:Schematron schema is invalid: cannot proceed until schema errors are fixed";
 
-        String toTestFor = "XMLProbe:file:/E:/eclipse/workspace/probatron/test"
+        String toTestFor = "Probatron:file:/E:/eclipse/workspace/probatron/test"
                 + "/rulesets/schema1.sch:3:10:[error]:unfinished element";
 
         assertFileStartsWith( dest, startsWith );
@@ -96,7 +96,7 @@ public class SchematronConfigurationTests extends TestsBase
         String toTestFor = "[FATAL]:error resolving Schematron schema inclusion: "
                 + "Error reported by XML parser; SystemID: file:/E:/eclipse/workspace/probatron/test/test-cases/; "
                 + "Line#: 1; Column#: 1\n"
-                + "XMLProbe:[warning]:error resolving Schematron schema inclusion: org.xml.sax.SAXParseException: Content is not allowed in prolog.";
+                + "Probatron:[warning]:error resolving Schematron schema inclusion: org.xml.sax.SAXParseException: Content is not allowed in prolog.";
 
         assertFileContains( dest, toTestFor );
     }
@@ -110,7 +110,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[warning]:error resolving Schematron schema inclusion: "
+        String toTestFor = "Probatron:[warning]:error resolving Schematron schema inclusion: "
                 + "Failure reading file:/E:/eclipse/workspace/probatron/test/test-cases/!!.xml";
 
         assertFileContains( dest, toTestFor );
@@ -125,7 +125,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[FATAL]:Schematron schema error at "
+        String toTestFor = "Probatron:[FATAL]:Schematron schema error at "
                 + "/*[local-name()='schema' and namespace-uri()="
                 + "'http://purl.oclc.org/dsdl/schematron'][1]"
                 + "/*[local-name()='include' and namespace-uri()"
@@ -144,7 +144,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[FATAL]:Schematron schema error at "
+        String toTestFor = "Probatron:[FATAL]:Schematron schema error at "
                 + "/*[local-name()='schema' and namespace-uri()="
                 + "'http://purl.oclc.org/dsdl/schematron'][1]"
                 + "/*[local-name()='include' and namespace-uri()="
@@ -164,7 +164,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:file:/E:/eclipse/workspace/probatron/test/rulesets/schema6.sch:3:12:[error]:element \"active\" from namespace "
+        String toTestFor = "Probatron:file:/E:/eclipse/workspace/probatron/test/rulesets/schema6.sch:3:12:[error]:element \"active\" from namespace "
                 + "\"http://purl.oclc.org/dsdl/schematron\" not allowed in this context";
 
         assertFileContains( dest, toTestFor );
@@ -179,7 +179,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[FATAL]:Schematron query language binding 'asdfasdf' not supported\n";
+        String toTestFor = "Probatron:[FATAL]:Schematron query language binding 'asdfasdf' not supported\n";
 
         assertFileEquals( dest, toTestFor );
     }
@@ -193,7 +193,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[FATAL]:Schematron query language binding 'XSLT' not supported\n";
+        String toTestFor = "Probatron:[FATAL]:Schematron query language binding 'XSLT' not supported\n";
 
         assertFileEquals( dest, toTestFor );
     }
@@ -207,7 +207,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[FATAL]:Schematron query language binding 'XSLT2' not supported\n";
+        String toTestFor = "Probatron:[FATAL]:Schematron query language binding 'XSLT2' not supported\n";
 
         assertFileEquals( dest, toTestFor );
     }
@@ -235,7 +235,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[FATAL]:Schematron query language binding 'xpath2' not supported\n";
+        String toTestFor = "Probatron:[FATAL]:Schematron query language binding 'xpath2' not supported\n";
 
         assertFileEquals( dest, toTestFor );
     }
@@ -249,7 +249,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[error]:Schematron schema validation error at "
+        String toTestFor = "Probatron:[error]:Schematron schema validation error at "
                 + "/*[local-name()='schema' and namespace-uri()='http://purl.oclc.org/"
                 + "dsdl/schematron'][1]/*[local-name()='phase' and namespace-uri()='"
                 + "http://purl.oclc.org/dsdl/schematron'][1]/*[local-name()='active' "
@@ -282,7 +282,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[error]:Schematron schema validation error at "
+        String toTestFor = "Probatron:[error]:Schematron schema validation error at "
                 + "/*[local-name()='schema' and namespace-uri()='http://purl.oclc.org/"
                 + "dsdl/schematron'][1]/*[local-name()='pattern' and namespace-uri()='"
                 + "http://purl.oclc.org/dsdl/schematron'][4]/@is-a: "
@@ -290,7 +290,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         assertFileContains( dest, toTestFor );
 
-        toTestFor = "XMLProbe:[FATAL]:error resolving abstract pattern: abstract pattern "
+        toTestFor = "Probatron:[FATAL]:error resolving abstract pattern: abstract pattern "
                 + "is-a='a1dddddddddd' referenced at /*[local-name()='schema' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][1]/*[local-name()='pattern' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][4] not found\n";
 
         assertFileStartsWith( dest, toTestFor );
@@ -319,7 +319,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[error]:Schematron schema validation error at "
+        String toTestFor = "Probatron:[error]:Schematron schema validation error at "
                 + "/*[local-name()='schema' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][1]/*[local-name()='pattern' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][1]/*[local-name()='rule' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][1]/*[local-name()='extends' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][1]/@rule: "
                 + "rule attribute value 'non-existent-rule' does not match the id attribute of an abstract rule\n";
 
@@ -349,7 +349,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[error]:Schematron schema validation error at "
+        String toTestFor = "Probatron:[error]:Schematron schema validation error at "
                 + "/*[local-name()='schema' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][1]/*[local-name()='let' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][1]/@name: variable name 'foo' "
                 + "should not match the name of a pattern parameter\n";
 
@@ -423,7 +423,7 @@ public class SchematronConfigurationTests extends TestsBase
         assertFileContains( dest, "9:24:[error]:bad value for attribute \"id\"" );
         assertFileContains(
                 dest,
-                "XMLProbe:file:/E:/eclipse/workspace/probatron/test/rulesets/schema24.sch:13:20:[error]:bad value for attribute \"id\"" );
+                "Probatron:file:/E:/eclipse/workspace/probatron/test/rulesets/schema24.sch:13:20:[error]:bad value for attribute \"id\"" );
     }
 
 
@@ -539,7 +539,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        assertFileContains( dest, "XMLProbe:[FATAL]:Schematron schema validation error at "
+        assertFileContains( dest, "Probatron:[FATAL]:Schematron schema validation error at "
                 + "/*[local-name()='schema' and namespace-uri()='http://purl.oclc.org/dsdl/"
                 + "schematron'][1]/*[local-name()='let' and namespace-uri()='http://purl.oclc."
                 + "org/dsdl/schematron'][2]: duplicate global variable 'globalVar1'" );
@@ -554,7 +554,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        assertFileContains( dest, "XMLProbe:file:/E:/eclipse/workspace/probatron/test"
+        assertFileContains( dest, "Probatron:file:/E:/eclipse/workspace/probatron/test"
                 + "/rulesets/schema1.sch:3:10:[error]:unfinished element\n" );
     }
 
@@ -675,7 +675,7 @@ public class SchematronConfigurationTests extends TestsBase
         System.setProperty( "relaxng-schema-location", "test/schemas/svrl.rnc" ); //N.B. resolved against cwd
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:dummy-instance.xml:1:7:[error]:unknown element \"foo\"\n"; //TODO
+        String toTestFor = "Probatron:dummy-instance.xml:1:7:[error]:unknown element \"foo\"\n"; //TODO
 
         assertFileEquals( dest, toTestFor );
     }
@@ -690,7 +690,7 @@ public class SchematronConfigurationTests extends TestsBase
         System.setProperty( "relaxng-schema-location", "test/schemas/wileyml3g.rng" ); //N.B. resolved against cwd
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:wileyml3g-invalid.xml:16:15:[error]:unknown element"
+        String toTestFor = "Probatron:wileyml3g-invalid.xml:16:15:[error]:unknown element"
                 + " \"foo\" from namespace \"http://www.wiley.com/namespaces/wiley\"\n";
 
         assertFileEquals( dest, toTestFor );
@@ -709,7 +709,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         assertFileStartsWith(
                 dest,
-                "XMLProbe:[FATAL]:error evaluating XPath expression [ID='u'] at "
+                "Probatron:[FATAL]:error evaluating XPath expression [ID='u'] at "
                         + "/*[local-name()='schema' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][1]/*[local-name()='pattern' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][2]/*[local-name()='rule' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][1]/*[local-name()='assert' and namespace-uri()='http://purl.oclc.org/dsdl/schematron'][1]: "
                         + "'$current' error evaluating XPath expression: Variable current" );
     }
@@ -723,7 +723,7 @@ public class SchematronConfigurationTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        String toTestFor = "XMLProbe:[FATAL]:duplicate variable name: ruleVar1\n";
+        String toTestFor = "Probatron:[FATAL]:duplicate variable name: ruleVar1\n";
 
         assertFileEquals( dest, toTestFor );
     }

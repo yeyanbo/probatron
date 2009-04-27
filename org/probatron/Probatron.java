@@ -324,7 +324,7 @@ public class Probatron implements Application
     public void terminate( int exitCode )
     {
         onExit();
-        logger.debug( "XMLProbe is terminating..." );
+        logger.debug( "Probatron is terminating..." );
         System.exit( exitCode );
     }
 
@@ -334,7 +334,7 @@ public class Probatron implements Application
      */
     public String name()
     {
-        return "XMLProbe";
+        return "Probatron";
     }
 
 

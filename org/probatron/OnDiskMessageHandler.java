@@ -200,7 +200,7 @@ public class OnDiskMessageHandler implements MessageHandler
 
                 if( i == '\n' )
                 {
-                    Utils.print( "XMLProbe:" + buf.toString(), encoding, out );
+                    Utils.print( "Probatron:" + buf.toString(), encoding, out );
                     buf = new StringBuffer();
                 }
             }

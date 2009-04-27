@@ -103,7 +103,7 @@ public class SchematronPhaseConfigTests extends TestsBase
         runXMLProbe( config, src, dest );
 
         assertFileContains( dest,
-                "XMLProbe:[error]:active phase set to 'tttttttttttt' but no such"
+                "Probatron:[error]:active phase set to 'tttttttttttt' but no such"
                         + " phase found; all patterns will be active" );
     }
 
@@ -141,7 +141,7 @@ public class SchematronPhaseConfigTests extends TestsBase
         runXMLProbe( config, src, dest );
 
         assertFileContains( dest,
-                "XMLProbe:[warning]:active phase set to '#DEFAULT' but schema does "
+                "Probatron:[warning]:active phase set to '#DEFAULT' but schema does "
                         + "not specify a default phase; all patterns will be active" );
     }
 
@@ -160,7 +160,7 @@ public class SchematronPhaseConfigTests extends TestsBase
 
         runXMLProbe( config, src, dest );
 
-        assertFileContains( dest, "XMLProbe:[warning]:active phase set to '#DEFAULT' but no such"
+        assertFileContains( dest, "Probatron:[warning]:active phase set to '#DEFAULT' but no such"
                 + " default phase 'alskdj' found; all patterns will be active" );
     }
 

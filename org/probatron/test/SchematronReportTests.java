@@ -1,21 +1,18 @@
 /*
- * Copyright 2009 Griffin Brown Digital Publishing Ltd
- * All rights reserved.
- *
- * This file is part of Probatron.
- *
- * Probatron is free software: you can redistribute it and/or modify
- * it under the terms of the Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2009 Griffin Brown Digital Publishing Ltd All rights reserved.
  * 
- * Probatron is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * Affero General Public License for more details.
- *
- * You should have received a copy of the Affero General Public License
- * along with Probatron.  If not, see <http://www.gnu.org/licenses/>.
+ * This file is part of Probatron.
+ * 
+ * Probatron is free software: you can redistribute it and/or modify it under the terms of the
+ * Affero General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * Probatron is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * the Affero General Public License for more details.
+ * 
+ * You should have received a copy of the Affero General Public License along with Probatron. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -52,18 +49,6 @@ public class SchematronReportTests extends TestsBase
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x );
-
-        //validate SVRL output using Jing
-        String validationResult = dest + ".validation";
-        String errs = "test/dest/err.log";
-        int retVal = validateWithJing( "-c schema/svrl.rnc " + dest + " 1>" + validationResult
-                + " 2>" + errs );
-
-        assertFileEquals( errs, "" );
-        //N.B. the SVRL schema requires at least one fired-rule element, but this may not happen!!
-        assertFileStartsWith(
-                validationResult,
-                "E:\\eclipse\\workspace\\probatron\\test\\dest\\schema47.out:8:18: error: required elements missing" );
     }
 
 
@@ -77,18 +62,6 @@ public class SchematronReportTests extends TestsBase
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x );
-
-        //validate SVRL output using Jing
-        String validationResult = dest + ".validation";
-        String errs = "test/dest/err.log";
-        int retVal = validateWithJing( "-c schema/svrl.rnc " + dest + " 1>" + validationResult
-                + " 2>" + errs );
-
-        assertFileEquals( errs, "" );
-        //N.B. the SVRL schema requires at least one fired-rule element, but this may not happen!! 
-        assertFileEquals(
-                validationResult,
-                "E:\\eclipse\\workspace\\probatron\\test\\dest\\testDefaultPhase.out:5:21: error: unfinished element\r\n" );
     }
 
 
@@ -101,15 +74,6 @@ public class SchematronReportTests extends TestsBase
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x );
 
-        //validate SVRL output using Jing
-        String validationResult = dest + ".validation";
-        String errs = "test/dest/testFiredRulesReported.err";
-        int retVal = validateWithJing( "-c schema/svrl.rnc " + dest + " 1>" + validationResult
-                + " 2>" + errs );
-
-        assertFileEquals( errs, "" );
-        //TODO: SVRL schema is broke
-        //        assertFileEquals( validationResult, "" );
     }
 
 
@@ -121,16 +85,6 @@ public class SchematronReportTests extends TestsBase
 
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
-
-        //validate SVRL output using Jing
-        String validationResult = dest + ".validation";
-        String errs = "test/dest/testFatalErrorReported.err";
-        int retVal = validateWithJing( "-c schema/svrl.rnc " + dest + " 1>" + validationResult
-                + " 2>" + errs );
-
-        assertFileEquals( errs, "" );
-        //TODO: SVRL schema is broke
-        //        assertFileEquals( validationResult, "" );
     }
 
 
@@ -153,16 +107,6 @@ public class SchematronReportTests extends TestsBase
         assertCountXPath( 1, doc, "//svrl:failed-assert[ starts-with( svrl:text, 'U7:' ) ]" );
         assertCountXPath( 1, doc, "//svrl:failed-assert[ starts-with( svrl:text, 'U9:' ) ]" );
         assertCountXPath( 4, doc, "//svrl:fired-rule" );
-
-        //validate SVRL output using Jing
-        String validationResult = dest + ".validation";
-        String errs = "test/dest/err.log";
-        int retVal = validateWithJing( "-c schema/svrl.rnc " + dest + " 1>" + validationResult
-                + " 2>" + errs );
-
-        assertFileEquals( errs, "" );
-        //TODO: SVRL schema is broke
-        //        assertFileEquals( validationResult, "" );
     }
 
 
@@ -194,16 +138,6 @@ public class SchematronReportTests extends TestsBase
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x );
-
-        //validate SVRL output using Jing
-        String validationResult = dest + ".validation";
-        String errs = "test/dest/err.log";
-        int retVal = validateWithJing( "-c schema/svrl.rnc " + dest + " 1>" + validationResult
-                + " 2>" + errs );
-
-        //TODO: SVRL schema is broke
-        assertFileEquals( errs, "" );
-        //        assertFileEquals( validationResult, "" );
     }
 
 
@@ -279,7 +213,7 @@ public class SchematronReportTests extends TestsBase
         String src = "test/test-cases/sample-article-1.xml";
         String dest = "test/dest/testNamePathInAssertInvalidXPath.out";
         String errs = "test/dest/testNamePathInAssertInvalidXPath.err";
-        
+
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x, errs );
@@ -289,7 +223,9 @@ public class SchematronReportTests extends TestsBase
         assertCountXPath( 1, doc,
                 "//svrl:failed-assert[svrl:text='I am a foo and I live in a ']" );
 
-        assertFileContains( errs, "XMLProbe:[error]:error evaluating XPath expression 'name(\\\\)': error compiling XPath expression: Unexpected '\\\\)'" );
+        assertFileContains(
+                errs,
+                "Probatron:[error]:error evaluating XPath expression 'name(\\\\)': error compiling XPath expression: Unexpected '\\\\)'" );
     }
 
 
@@ -299,7 +235,7 @@ public class SchematronReportTests extends TestsBase
         String src = "test/test-cases/sample-article-1.xml";
         String dest = "test/dest/testNamePathInReportInvalidXPath.out";
         String errs = "test/dest/testNamePathInReportInvalidXPath.err";
-        
+
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x, errs );
@@ -309,15 +245,18 @@ public class SchematronReportTests extends TestsBase
         assertCountXPath( 1, doc,
                 "//svrl:successful-report[svrl:text='I am a foo and I live in a ']" );
 
-        assertFileContains( errs, "XMLProbe:[error]:error evaluating XPath expression 'name(\\\\)': error compiling XPath expression: Unexpected '\\\\)'" );
+        assertFileContains(
+                errs,
+                "Probatron:[error]:error evaluating XPath expression 'name(\\\\)': error compiling XPath expression: Unexpected '\\\\)'" );
     }
-    
+
+
     public void testValueOfReportedInAssert() throws Exception
     {
         String config = "test/rulesets/schema58.sch";
         String src = "test/test-cases/sample-article-1.xml";
         String dest = "test/dest/testValueOfReportedInAssert.out";
-        
+
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x );
@@ -327,7 +266,8 @@ public class SchematronReportTests extends TestsBase
         assertCountXPath( 1, doc,
                 "//svrl:failed-assert[svrl:text='I am a foo and I live in a wng:publisherInfo']" );
     }
-    
+
+
     public void testValueOfReportedInReport() throws Exception
     {
         String config = "test/rulesets/schema57.sch";
@@ -341,15 +281,16 @@ public class SchematronReportTests extends TestsBase
         int doc = nav.getDocument( dest );
         assertCountXPath( 1, doc,
                 "//svrl:successful-report[svrl:text='I am a foo and I live in a wng:publisherInfo']" );
-    }    
-    
+    }
+
+
     public void testValueOfReportedInAssertInvalidXPath() throws Exception
     {
         String config = "test/rulesets/schema59.sch";
         String src = "test/test-cases/sample-article-1.xml";
         String dest = "test/dest/testValueOfReportedInAssertInvalidXPath.out";
         String errs = "test/dest/testValueOfReportedInAssertInvalidXPath.err";
-        
+
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x, errs );
@@ -359,16 +300,19 @@ public class SchematronReportTests extends TestsBase
         assertCountXPath( 1, doc,
                 "//svrl:failed-assert[svrl:text='I am a foo and I live in a ']" );
 
-        assertFileContains( errs, "XMLProbe:[error]:error evaluating XPath expression '\\\\': error compiling XPath expression: Unexpected '\\\\'" );
+        assertFileContains(
+                errs,
+                "Probatron:[error]:error evaluating XPath expression '\\\\': error compiling XPath expression: Unexpected '\\\\'" );
     }
-    
+
+
     public void testValueOfReportedInReportInvalidXPath() throws Exception
     {
         String config = "test/rulesets/schema60.sch";
         String src = "test/test-cases/sample-article-1.xml";
         String dest = "test/dest/testValueOfReportedInReportInvalidXPath.out";
         String errs = "test/dest/testValueOfReportedInAssertInvalidXPath.err";
-        
+
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x, errs );
@@ -378,9 +322,12 @@ public class SchematronReportTests extends TestsBase
         assertCountXPath( 1, doc,
                 "//svrl:successful-report[svrl:text='I am a foo and I live in a ']" );
 
-        assertFileContains( errs, "XMLProbe:[error]:error evaluating XPath expression '\\\\': error compiling XPath expression: Unexpected '\\\\'" );
-    } 
-    
+        assertFileContains(
+                errs,
+                "Probatron:[error]:error evaluating XPath expression '\\\\': error compiling XPath expression: Unexpected '\\\\'" );
+    }
+
+
     public void testValueOfVariableReportedInAssert() throws Exception
     {
         String config = "test/rulesets/schema61.sch";
@@ -395,7 +342,8 @@ public class SchematronReportTests extends TestsBase
         assertCountXPath( 1, doc,
                 "//svrl:failed-assert[svrl:text='I am a foo and I live in a 16']" );
     }
-    
+
+
     public void testValueOfVariableReportedInReport() throws Exception
     {
         String config = "test/rulesets/schema62.sch";
@@ -410,7 +358,8 @@ public class SchematronReportTests extends TestsBase
         assertCountXPath( 1, doc,
                 "//svrl:successful-report[svrl:text='I am a foo and I live in a 16']" );
     }
-    
+
+
     public void testValueOfVariableNoCrosstalkInReport() throws Exception
     {
         String config = "test/rulesets/schema63.sch";
@@ -423,20 +372,21 @@ public class SchematronReportTests extends TestsBase
         ShailNavigator nav = ShailNavigator.getInstance();
         int doc = nav.getDocument( dest );
         assertCountXPath( 1, doc,
-        "//svrl:successful-report[svrl:text='root element found 999']" );
+                "//svrl:successful-report[svrl:text='root element found 999']" );
         assertCountXPath( 1, doc,
                 "//svrl:successful-report[svrl:text='I am a foo and I live in a ']" );
 
         //TODO: test for error message on stderr about invalid <name/> XPath here
     }
-    
+
+
     public void testValueOfVariableNoCrosstalkInAssert() throws Exception
     {
         String config = "test/rulesets/schema64.sch";
         String src = "test/test-cases/sample-article-1.xml";
         String dest = "test/dest/testValueOfVariableNoCrosstalkInAssert.out";
         String errs = "test/dest/testValueOfVariableNoCrosstalkInAssert.err";
-        
+
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x, errs );
@@ -444,19 +394,22 @@ public class SchematronReportTests extends TestsBase
         ShailNavigator nav = ShailNavigator.getInstance();
         int doc = nav.getDocument( dest );
         assertCountXPath( 1, doc,
-        "//svrl:successful-report[svrl:text='root element found 999']" );
+                "//svrl:successful-report[svrl:text='root element found 999']" );
         assertCountXPath( 1, doc,
                 "//svrl:failed-assert[svrl:text='I am a foo and I live in a ']" );
 
-        assertFileContains( errs, "XMLProbe:[error]:error evaluating XPath expression '$ruleVar1': error evaluating XPath expression as string: Variable ruleVar1" );
+        assertFileContains(
+                errs,
+                "Probatron:[error]:error evaluating XPath expression '$ruleVar1': error evaluating XPath expression as string: Variable ruleVar1" );
     }
-    
+
+
     public void testValueOfVariableReportedInAssertDynamicValue() throws Exception
     {
         String config = "test/rulesets/schema65.sch";
         String src = "test/test-cases/sample-article-1.xml";
         String dest = "test/dest/testValueOfVariableReportedInAssertDynamicValue.out";
-        
+
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x );
@@ -464,11 +417,12 @@ public class SchematronReportTests extends TestsBase
         ShailNavigator nav = ShailNavigator.getInstance();
         int doc = nav.getDocument( dest );
         assertCountXPath( 1, doc,
-        "//svrl:successful-report[svrl:text='root element found 999']" );
+                "//svrl:successful-report[svrl:text='root element found 999']" );
         assertCountXPath( 1, doc,
                 "//svrl:failed-assert[svrl:text='I am a foo and I live in a wng:publisherInfo']" );
     }
-    
+
+
     public void testValueOfVariableReportedInReportDynamicValue() throws Exception
     {
         String config = "test/rulesets/schema66.sch";
@@ -481,28 +435,27 @@ public class SchematronReportTests extends TestsBase
         ShailNavigator nav = ShailNavigator.getInstance();
         int doc = nav.getDocument( dest );
         assertCountXPath( 1, doc,
-        "//svrl:successful-report[svrl:text='root element found 999']" );
+                "//svrl:successful-report[svrl:text='root element found 999']" );
         assertCountXPath( 1, doc,
                 "//svrl:successful-report[svrl:text='I am a foo and I live in a wng:publisherInfo']" );
     }
-    
+
+
     public void testSchemaTitleAppearsInReport() throws Exception
     {
         String config = "test/rulesets/schema68.sch";
         String src = "test/test-cases/sample-article-1.xml";
         String dest = "test/dest/testSchemaTitleAppearsInReport.out";
-        
+
         ProbatronSession x = createXMLProbeSession( config, src, dest );
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x );
-        
+
         ShailNavigator nav = ShailNavigator.getInstance();
-        int doc = nav.getDocument( dest );        
-        
+        int doc = nav.getDocument( dest );
+
         assertXPathEquals( "Schema title", doc, "/svrl:schematron-output/@title" );
     }
-    
-    
 
     //TODO: check all namespaces used are also declared in SVRL instance as xmlns:*   
 

@@ -129,7 +129,7 @@ public class SchematronQueryEvaluationTests extends TestsBase
         x.setErrorFormat( Constants.ERRORS_AS_XML );
         runXMLProbe( x, errs );
         
-        assertFileContains( errs, "XMLProbe:[FATAL]:rule context expression must evaluate to a node-set: got true" );
+        assertFileContains( errs, "Probatron:[FATAL]:rule context expression must evaluate to a node-set: got true" );
     }
 
 
