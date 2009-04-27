@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-    <classpathentry exported="true" kind="var" path="JRE_LIB"
-        rootpath="JRE_SRCROOT" sourcepath="JRE_SRC"/>
-    <classpathentry kind="src" path=""/>
-    <classpathentry kind="lib" path="C:/jdk1.3.1_01/lib/xerces.jar"/>
-    <classpathentry kind="output" path=""/>
-</classpath>
