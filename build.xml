@@ -1,0 +1,134 @@
+<!--*
+    * This file is part of Probatron.
+    *
+    * $Id$
+    *-->
+
+<project name="probatron" default="2jar" basedir=".">
+    <description>builds Probatron JARs based on the DEVELOPMENT version of the source code</description>
+  <!-- set global properties for this build -->
+  <property name="src" location="."/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+  <property name="doc"  location="doc"/>
+  <property name="etc"  location="etc"/>
+  <property name="xsl"  location="xsl"/>
+  <property name="test"  location="test"/>
+  <property name='licences' location='licences'/>
+  <property name="main-class" value="org.probatron.Probatron"/>
+
+  
+  <!--required libraries-->
+  <property name="library.xercesImpl" value="${etc}\xercesImpl.jar"/>
+  <property name="library.xml-apis" value="${etc}\xml-apis.jar"/>
+  <property name="library.jing" value="${etc}\jing.jar"/>
+  <property name="library.log4j" value="${etc}\log4j-1.2.9.jar"/>
+
+  <target name="tstamp" description="generate timestamp">
+    <!-- Create the time stamp -->
+    <tstamp>
+    	<format property="build.time" pattern="yyyyMMdd_HHmmss"/>
+    </tstamp>
+  </target>
+
+  <target name="clean" description="clean up build files" depends='tstamp'>
+    <!-- Delete the ${build} and ${doc} directory trees -->
+    <delete dir="${build}"/>
+  </target>
+  
+  <target name="init" depends='clean'>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>  
+    <mkdir dir="${dist}"/>  
+    <mkdir dir="${doc}"/>  
+  </target>
+  
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="${src}" destdir="${build}" source='1.4'>    	
+    
+    	<!-- don't compile the test suites -->
+    	<exclude name='org/probatron/test/**.java'/>	
+    
+			<!--set the classpath for compilation-->
+			<classpath>
+				<pathelement location="${library.xercesImpl}"/>
+				<pathelement location="${library.xml-apis}"/>
+				<pathelement location="${library.jing}"/>
+				<pathelement location="${library.log4j}"/>
+				<pathelement location="${library.shail}"/>
+			</classpath>
+		</javac>
+  </target>
+
+	
+	<!--**********************************************
+			*
+			* MAIN METHOD FOR BUILDING PROBATRON
+			*
+			**********************************************-->
+  <target name="2jar" depends="compile" description="builds command-line version of JAR">
+
+    <unjar src="${library.xml-apis}" dest="${build}"/>
+    <unjar src="${library.xercesImpl}" dest="${build}"/>
+    <unjar src="${library.log4j}" dest="${build}"/>
+    <unjar src="${library.jing}" dest="${build}"/>
+
+    <jar destfile="${dist}/probatron.jar">
+    	<fileset dir='${build}'/>
+
+    	<!--add the 3rd-party licences-->
+    	<fileset dir='${licences}'/>
+
+    	<!--specifies the manifest file-->
+    	<manifest>
+    		<attribute name='Main-Class' value='${main-class}'/>    		
+    		<attribute name='Class-Path' value='.'/>
+    	</manifest>
+    </jar>
+  </target>
+  
+  <target name='doc' description='document the source code'>
+  	<javadoc destdir='${doc}'
+  					 Windowtitle='Probatron'
+  					 stylesheetfile='css/javadoc.css'> 
+  		
+  		<!-- the packages to document -->
+			<packageset dir='src'>
+				<exclude name='org/probatron/test/**'/>
+			</packageset>
+			
+			<classpath>
+				<pathelement location="${library.xercesImpl}"/>
+				<pathelement location="${library.xml-apis}"/>
+				<pathelement location="${library.jing}"/>
+				<pathelement location="${library.log4j}"/>
+			</classpath>
+			
+		</javadoc>
+  </target>
+  
+  <target name="zip-all-sources" description="zip the project for ease of transfer" depends='tstamp'>
+    <zip destfile='${dist}/probatron_proj_${build.time}.zip' duplicate='fail'>
+	   	<fileset dir='..'>
+    		<!--Eclipse-specific metadata-->
+    		<include name='**/.classpath'/>
+    		<include name='**/.project'/>
+    		<!--source and dependencies-->
+    		<include name='**/*.java'/>
+    		<include name='etc/*.*'/>
+    		<include name='**/build.xml'/>	<!--this file-->
+    	</fileset>
+    </zip>
+  </target>  
+
+  <target name='zip-source' description='create a zip of the (Probatron-specific) source code' depends='tstamp'>
+    <zip destfile='probatron_src_${build.time}.zip' duplicate='fail'>
+	   	<fileset dir='${src}'>
+    		<include name='**/*.java'/>
+    	</fileset>    	
+    </zip>  
+  </target>
+  
+</project>
