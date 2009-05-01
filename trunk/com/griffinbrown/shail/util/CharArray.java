@@ -7,6 +7,13 @@ import java.util.EmptyStackException;
 
 import org.apache.log4j.Logger;
 
+/**
+ * A resizable array of <code>char</code>s.
+ * 
+ * @author andrews
+ * 
+ * $Id$
+ */
 public class CharArray
 {
     private final static int DEFAULT_CAPACITY = 2048; //default size for each mem block
@@ -15,11 +22,11 @@ public class CharArray
     private int capacityDelta; // capacity when object is fresh
     private int capacity; // how many slots in total object has
 
-    
     private static Logger logger = Logger.getLogger( CharArray.class );
 
+
     /**
-     * Constructs an CharArray with default capacity (65536 items).
+     * Constructs an CharArray with default capacity (2048 items).
      */
     public CharArray()
     {
@@ -143,6 +150,7 @@ public class CharArray
 
 
     /**
+     * Accesses the number of items stored in the array.
      * @return the number of items stored in this array.
      */
     public int numItems()
@@ -165,7 +173,8 @@ public class CharArray
         numItems++;
 
     }
-    
+
+
     /**
      * Prepends an item to this array.
      * @param n the item to prepend.
@@ -177,14 +186,14 @@ public class CharArray
         {
             addCapacity();
         }
-        
+
         //copy old array 0..n to 1..n in new array
         char[] copy = new char[ capacity ];
         System.arraycopy( this.items, 0, copy, 1, this.numItems - 1 );
 
         //prepend the new item
-        items[ 0 ] = c;        
-    }    
+        items[ 0 ] = c;
+    }
 
 
     /**
@@ -212,6 +221,10 @@ public class CharArray
     }
 
 
+    /**
+     * Accesses the last item in the array and removes it.
+     * @return the last item in the array; if the array is empty an {@link EmptyStackException} is thrown
+     */
     public int pop()
     {
         if( numItems > 0 )
@@ -223,6 +236,10 @@ public class CharArray
     }
 
 
+    /**
+     * Accesses the last item in the array.
+     * @return the last item in the array; if the array is empty an {@link EmptyStackException} is thrown 
+     */
     public int peek()
     {
         if( numItems > 0 )
@@ -282,34 +299,27 @@ public class CharArray
     }
 
 
+    /**
+     * Returns a snapshot of items in the array as a <code>char</code> array.
+     * The underlying array is unaffected.
+     * @return an array of items stored in the array
+     */
     public char[] toCharArray()
     {
         char[] result = new char[ numItems ];
         System.arraycopy( this.items, 0, result, 0, numItems );
         return result;
     }
-    
+
+
+    /**
+     * Whether the array is empty
+     * @return <code>true</code> if the array is empty, otherwise <code>false</code>
+     */
     public boolean isEmpty()
     {
         return numItems == 0;
     }
-    
-    public CharArray subList( int start )
-    {
-        logger.debug("subList("+start+"); numItems="+numItems);
-        
-        if( start < 0 || start > numItems )
-        {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-        
-        int len = numItems - start;
-        char[] newList = new char[ len ];
-        System.arraycopy( this.items, start, newList, 0, len );
-        this.items = newList;
-        this.numItems = len;
-        
-        return this;
-    }
+
 
 }

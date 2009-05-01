@@ -9,7 +9,13 @@ import java.util.HashMap;
 
 import com.griffinbrown.shail.util.CharArray;
 
-public class CharArrayStringHandler implements StringHandler
+/**
+ * Implementation of StringHandler using <code>char</code> arrays as storage.
+ * @author andrews
+ *
+ * $Id$
+ */
+class CharArrayStringHandler implements StringHandler
 {
     protected ByteArrayOutputStream eventStream;
     protected char[] strings;

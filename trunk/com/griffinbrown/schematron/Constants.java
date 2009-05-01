@@ -27,12 +27,25 @@ import java.io.ByteArrayInputStream;
 
 import org.xml.sax.InputSource;
 
+/**
+ * Useful Schematron constants.
+ * @author andrews
+ *
+ * $Id$
+ */
 public class Constants
 {
     private Constants()
     {}
     
+    /**
+     * The namespace URI for Schematron schemas.
+     */
     public static final String SCHEMATRON_NAMESPACE = "http://purl.oclc.org/dsdl/schematron";
+    
+    /**
+     * The namespace URI for the Schematron Validation Report Language (SVRL).
+     */
     public static final String SVRL_NAMESPACE = "http://purl.oclc.org/dsdl/svrl";
     
     /**

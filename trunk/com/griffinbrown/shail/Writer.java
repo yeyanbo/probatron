@@ -3,14 +3,14 @@
  */
 package com.griffinbrown.shail;
 
-public class Writer
+/**
+ * Interface for creating Shail documents node by node, rather than by parsing a pre-existing XML document.
+ * @author andrews
+ *
+ * $Id$
+ */
+public interface Writer
 {
-
-    public Writer()
-    {
-    
-    }
-    
-    
+ 
 
 }

@@ -170,7 +170,7 @@ public abstract class Pattern
 
     /**
      * Accesses the rules active for this pattern.
-     * Note that under XMLProbe, active rules are not resolved until the application is run.
+     * Note that the set of active rules is not known until abstract rules have been resolved. 
      * @return the rules
      */
     public List getRules()

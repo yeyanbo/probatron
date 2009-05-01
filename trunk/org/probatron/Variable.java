@@ -27,7 +27,22 @@ import com.griffinbrown.xmltool.XMLToolException;
 
 public interface Variable
 {
+    /**
+     * Accesses the expression declared for the variable.
+     * @return the declared expression
+     */
     String getExpression();
+    
+    /**
+     * Accesses the name of a variable.
+     * @return
+     */
     String getName();
+    
+    /**
+     * Compiles the variable using the specified evaluator.
+     * @return the compiled expression
+     * @throws if the expression cannot be compiled
+     */
     Object compile( QueryEvaluator evaluator ) throws XMLToolException;
 }

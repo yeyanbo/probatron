@@ -36,7 +36,7 @@ import com.griffinbrown.xmltool.Message;
 import com.griffinbrown.xmltool.Session;
 import com.griffinbrown.xmltool.utils.Utils;
 
-/*
+/**
  * Class to emit a report for an XML document validated against a Schematron schema.
  * 
  * @author andrews

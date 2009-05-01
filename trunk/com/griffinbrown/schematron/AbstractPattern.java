@@ -32,7 +32,7 @@ import org.probatron.jaxen.JaxenException;
 import com.griffinbrown.xmltool.XMLToolException;
 
 /**
- * Represents a Schematron pattern declared as abstract (in XPath terms, pattern/@abstract='true').
+ * Represents a Schematron pattern declared as abstract (in XPath terms, <code>pattern/@abstract='true'</code>).
  * @author andrews
  * 
  * @version $Id: AbstractPattern.java,v 1.2 2009/02/11 08:52:52 GBDP\andrews Exp $

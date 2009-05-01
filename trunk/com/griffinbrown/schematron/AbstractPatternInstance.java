@@ -42,7 +42,7 @@ import com.griffinbrown.xmltool.XMLToolException;
 /**
  * Represents an instance of a abstract pattern in a Schematron schema.
  * Objects of this class model, in XPath terms, nodes in the set <tt>pattern/@is-a</tt>
- * where this value of this node matches a value in the node-set <tt>pattern[ \@abstract='true' ]/@id</tt>.
+ * where the value of this node matches a value in the node-set <tt>pattern[ @abstract='true' ]/@id</tt>.
  * @author andrews
  *
  * @version $Id: AbstractPatternInstance.java,v 1.2 2009/02/11 08:52:52 GBDP\andrews Exp $
