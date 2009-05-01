@@ -1,3 +1,5 @@
 #summary How to build Probatron from source
 
-  #Ensure you have a Subversion client installed.
+  # Ensure you have a [http://subversion.tigris.org/links.html#clients Subversion client] installed. Windows users may like [http://tortoisesvn.net/downloads Tortoise SVN].
+  # [http://code.google.com/p/probatron/source/checkout Check out] the source from the project's repository.
+ # Follow the instructions in [http://probatron.googlecode.com/svn/trunk/readme.txt readme.txt].
