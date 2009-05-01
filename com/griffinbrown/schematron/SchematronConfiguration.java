@@ -101,9 +101,7 @@ public class SchematronConfiguration implements Configuration
         {
             session.addMessage( new SessionMessage( session.getApplication(),
                     com.griffinbrown.xmltool.Constants.ERROR_TYPE_FATAL, "error parsing configuration file: "
-                            + e.getMessage()
-                            + ( e.getNestedException() != null ? ": " + e.getNestedException()
-                                    : "" ) ) );
+                            + e.getMessage() ) );
 
             session.fatalError();
         }

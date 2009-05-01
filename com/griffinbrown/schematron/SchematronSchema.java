@@ -461,7 +461,7 @@ public class SchematronSchema
 
     /**
      * Sets the handler to use when evaluating assertions 
-     * @param queryHandler the queryHandler to set
+     * @param queryHandler the query handler to set
      */
     public void setQueryHandler( QueryHandler queryHandler )
     {
@@ -471,7 +471,7 @@ public class SchematronSchema
 
     /**
      * Accesses the handler to use when evaluating assertions 
-     * @return the queryHandler
+     * @return the query handler
      */
     public QueryHandler getQueryHandler()
     {

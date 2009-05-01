@@ -23,13 +23,18 @@
  */
 package com.griffinbrown.schematron;
 
+import org.probatron.QueryEvaluator;
+import org.probatron.XPathVariable;
+
+import com.griffinbrown.xmltool.XMLToolException;
+
 /**
  * Represents an XPath variable in a Schematron schema which is global in scope.
  * @author andrews
  *
  * @version $Id: GlobalXPathVariable.java,v 1.2 2009/02/11 08:52:52 GBDP\andrews Exp $
  */
-public class GlobalXPathVariable extends org.probatron.GlobalXPathVariable
+public class GlobalXPathVariable extends XPathVariable
 {
     private Object context;
 
@@ -69,6 +74,16 @@ public class GlobalXPathVariable extends org.probatron.GlobalXPathVariable
     public String asNormalizedXml()
     {
         return "<let name='" + getName() + " value='" + getExpression() + "/>";
+    }
+    
+    /**
+     * @see org.probatron.XPathVariable#evaluate(int, org.probatron.QueryEvaluator)
+     */
+    public Object evaluate( int context, QueryEvaluator evaluator ) throws XMLToolException
+    {
+        Object result = super.evaluate( context, evaluator );
+        evaluator.setGlobalVariableValue( getNamespaceURI(), getName(), result );
+        return result;
     }
 
 }

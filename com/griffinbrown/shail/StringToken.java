@@ -1,5 +1,11 @@
 package com.griffinbrown.shail;
 
+/**
+ * A wrapper for a string stored in a hash table.
+ * @author andrews
+ *
+ * $Id$
+ */
 public final class StringToken implements Comparable
 {
     private String s;

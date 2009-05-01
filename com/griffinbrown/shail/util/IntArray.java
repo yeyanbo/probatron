@@ -27,7 +27,7 @@ public class IntArray
 
 
     /**
-     * Constructs an IntArray with default capacity (65536 items).
+     * Constructs an IntArray with default capacity (2 items).
      */
     public IntArray()
     {
@@ -151,6 +151,7 @@ public class IntArray
 
 
     /**
+     * Accesses the number of items in the array.
      * @return the number of items stored in this array.
      */
     public int numItems()
@@ -220,7 +221,10 @@ public class IntArray
          }//*/
     }
 
-
+    /**
+     * Accesses the last item in the array and removes it.
+     * @return the last item in the array; if the array is empty an {@link EmptyStackException} is thrown
+     */
     public int pop()
     {
         if( numItems > 0 )
@@ -231,7 +235,10 @@ public class IntArray
         throw new EmptyStackException();
     }
 
-
+    /**
+     * Accesses the last item in the array.
+     * @return the last item in the array; if the array is empty an {@link EmptyStackException} is thrown 
+     */
     public int peek()
     {
         if( numItems > 0 )
@@ -290,7 +297,11 @@ public class IntArray
         return s.toString();
     }
 
-
+    /**
+     * Returns a snapshot of items in the array as an <code>int</code> array.
+     * The underlying array is unaffected.
+     * @return an array of items stored in the array
+     */
     public int[] toIntArray()
     {
         int[] result = new int[ numItems ];
@@ -298,29 +309,13 @@ public class IntArray
         return result;
     }
 
-
+    /**
+     * Whether the array is empty.
+     * @return
+     */
     public boolean isEmpty()
     {
         return numItems == 0;
     }
 
-
-    public IntArray subList( int start )
-    {
-        if( logger.isDebugEnabled() )
-            logger.debug( "subList(" + start + "); numItems=" + numItems );
-
-        if( start < 0 || start > numItems )
-        {
-            throw new ArrayIndexOutOfBoundsException();
-        }
-
-        int len = numItems - start;
-        int[] newList = new int[ len ];
-        System.arraycopy( this.items, start, newList, 0, len );
-        this.items = newList;
-        this.numItems = len;
-
-        return this;
-    }
 }

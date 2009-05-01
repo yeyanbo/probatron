@@ -3,6 +3,13 @@
  */
 package com.griffinbrown.shail;
 
+/**
+ * An node on the XPath <code>namespace</code> axis.
+ * 
+ * @author andrews
+ *
+ * $Id$
+ */
 public class NamespaceNode
 {
     private String uri;

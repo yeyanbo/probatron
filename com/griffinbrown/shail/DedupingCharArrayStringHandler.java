@@ -3,7 +3,7 @@
  */
 package com.griffinbrown.shail;
 
-public class DedupingCharArrayStringHandler extends CharArrayStringHandler
+class DedupingCharArrayStringHandler extends CharArrayStringHandler
 {
     public void addString( String s )
     {

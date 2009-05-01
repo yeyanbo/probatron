@@ -10,6 +10,14 @@ import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 
+/*
+ * A registry for Shail models. Since all Shail nodes are represented by <code>int</code>s, this
+ * class is provided so that applications can tell what document a given node belongs to.
+ * 
+ * @author andrews
+ * 
+ * $Id$
+ */
 public class ModelRegistry
 {
     private HashMap models;
@@ -25,6 +33,12 @@ public class ModelRegistry
     }
 
 
+    /**
+     * Registers a model.
+     * Once a mode has been registered, it is possible to retrieve the model a node belongs to, 
+     * through a call to {@link #getModelForNode(int)}.
+     * @param model the model to register
+     */
     public static void register( Model model )
     {
 
@@ -63,10 +77,15 @@ public class ModelRegistry
     }
 
 
+    /**
+     * Retrieves the model a node belongs to.
+     * @param o the node whose model is to be found
+     * @return the model the node belongs to, or <code>null</code> if no model can be located  
+     */
     public static Model getModelForNode( int o )
     {
         //logger.debug( "*****getting model for node " + o + "****** registry=" + REGISTRY
-          //      + " models=" + REGISTRY.models );
+        //      + " models=" + REGISTRY.models );
 
         if( REGISTRY.models.size() == 1 ) //only one doc has been built by the navigator
         {
@@ -84,7 +103,8 @@ public class ModelRegistry
         for( int i = 0; i < keys.length; i++ )
         {
             Object root = keys[ i ];
-            switch( node.compareTo( root ) ){
+
+            switch( node.compareTo( ( Integer )root ) ){
             case 0: //==
                 return ( Model )REGISTRY.models.get( root );
             case 1: //node > root
@@ -112,7 +132,6 @@ public class ModelRegistry
     {
         return REGISTRY.models.toString();
     }
-
 
 
     /**

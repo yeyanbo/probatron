@@ -7,6 +7,12 @@ import org.apache.log4j.Logger;
 
 import com.griffinbrown.shail.util.IntArray;
 
+/**
+ * Main access point for Shail documents. Analogous to DOM's <code>Node</code> and its sub-classes.
+ * @author andrews
+ *
+ * $Id$
+ */
 public class Model
 {
 //    int tokCount;
@@ -50,7 +56,6 @@ public class Model
     private String doctypeSystemId;
     private String doctypePublicId;
 
-    public static long follSibTime;
 
 
     public Model()
@@ -62,7 +67,11 @@ public class Model
         this.url = url;
     }
 
-
+    /**
+     * Accesses the node type of the event at position <code>i</code>.
+     * @param i the event index
+     * @return the node type for the event index passed in
+     */
     public byte getType( int i )
     {
         return builder.getEvents()[ i - rootIndex ];
@@ -70,7 +79,7 @@ public class Model
 
 
     /**
-     * 
+     * Accesses the local name of the node at position <code>i</code>.
      * @return the local name of the node
      */
     public String getLocalName( int i )
@@ -88,13 +97,19 @@ public class Model
         return qName;
     }
 
-
+    /**
+     * Accessest the root node.
+     * @return the root node
+     */
     public int getRoot()
     {
         return rootIndex;
     }
 
-
+    /**
+     * Summarises the model for debugging purposes.
+     * @return a summary of the model
+     */
     public String report()
     {
         int eventCount = ( builder.getEvents() != null ? builder.getEvents().length : 0 );
@@ -161,6 +176,10 @@ public class Model
     }
 
 
+    /**
+     * Retrieves children of the element at position <code>context</code>.
+     * @return the children of element at  position <code>context</code>, or an empty array if there are none 
+     */
     public int[] getChildren( int node )
     {
         int context = node - rootIndex;
@@ -209,7 +228,10 @@ public class Model
 
     }
 
-
+    /**
+     * Retrieves descendants of the element at position <code>context</code>.
+     * @return the descendants of element at  position <code>context</code>, or an empty array if there are none 
+     */
     public int[] getDescendants( int context, boolean includeSelf )
     {
         IntArray descendants = new IntArray();
@@ -228,7 +250,12 @@ public class Model
         return descendants.toIntArray();
     }
 
-
+    /**
+     * Accesses nodes on the ancestor or ancestor-or-self axis.
+     * @param context the node whose ancestors are required
+     * @param includeSelf whether to also return the context node
+     * @return ancestors of the node passed in, or an empty array if there are none
+     */
     public int[] getAncestors( int context, boolean includeSelf )
     {
         IntArray ancestors = new IntArray();
@@ -310,12 +337,14 @@ public class Model
     }*/
 
     /**
+     * Accesses the parent of the node at position <code>i</code>.
      * This version of the algorithm searches for parent events whose
      * following event(s) store the offset of the parent node from the context node.
+     * @return the parent of the node, or -1 if none exists
      */
-    public int getParent( int node )
+    public int getParent( int i )
     {
-        int context = node - rootIndex;
+        int context = i - rootIndex;
 
         if( ( byte )builder.getEvents()[ context ] == Model.EV_DOCUMENT )
             return - 1; //root has no parent
@@ -349,7 +378,11 @@ public class Model
         return tokid;
     }
 
-
+    /**
+     * Accesses nodes on the preceding axis.
+     * @param context the node whose preceding nodes are required
+     * @return nodes preceding that passed in, or an empty array if there are none
+     */
     public int[] getPreceding( int context )
     {
         int i = context - rootIndex - 1; //start at previous event
@@ -386,7 +419,11 @@ public class Model
         return result.toIntArray();
     }
 
-
+    /**
+     * Accesses nodes on the preceding-sibling axis.
+     * @param context the node whose preceding siblings are required
+     * @return preceding siblings of the node passed in, or an empty array if there are none
+     */
     public int[] getPrecedingSiblings( int node )
     {
         //        logger.debug( "getPrecedingSiblings context="+node );
@@ -416,7 +453,13 @@ public class Model
         return ( offset == - 1 ? offset : prevSibEvent - offset );
     }
 
-
+    /**
+     * Counts preceding siblings of the node <code>node</code> which are of the same type and, where applicable, have the same name.
+     * This method is used to assemble XPath-syntax locators for nodes.
+     * In this implementation, a count of 1 is returned as -1 to avoid superfluous <code>[1]</code> predicates. 
+     * @param node the node whose similar preceding siblings are required
+     * @return the number of similar preceding siblings, or -1 if the node has no similar preceding or following siblings  
+     */
     public int getSimilarPrecedingSiblingCount( int node )
     {
         int count = 1;
@@ -453,13 +496,16 @@ public class Model
         //        return false;
     }
 
-
-    public int[] getFollowingSiblings( int node )
+    /**
+     * Retrieves following siblings of the element at position <code>context</code>.
+     * @return the following siblings of element at  position <code>context</code>, or an empty array if there are none 
+     */
+    public int[] getFollowingSiblings( int context )
     {
         //        logger.debug( "getting foll sibs for " + node );
         IntArray follSibs = new IntArray();
 
-        int foll = getFollowingSibling( node - rootIndex );
+        int foll = getFollowingSibling( context - rootIndex );
         //        logger.debug( "foll sib=" + foll );
         while( foll != - 1 )
         {
@@ -551,7 +597,7 @@ public class Model
 
     /**
      * Retrieves attributes for the element at position <code>context</code>.
-     * @return
+     * @return the attributes for element at  position <code>context</code>, or an empty array if there are none 
      */
     public int[] getAttributes( int context )
     {
@@ -616,6 +662,7 @@ public class Model
 
 
     /**
+     * Accesses the <code>QName</code> of the node at position <code>i</code>.
      * N.B. In this impl, for <strong>named</strong> nodes (i.e. elements, attributes, PIs), the name
      * is presumed to occur as the very next event.  
      * @return the QName of the node
@@ -632,7 +679,7 @@ public class Model
     /**
      * Returns the prefix (if any) for the node at index <code>index</code>
      * @param index the index of the node whose prefix is requested 
-     * @return the prefix of the node at index <code>index</code>, or null if none exists
+     * @return the prefix of the node at index <code>index</code>, or <code>null</code> if none exists
      */
     public String getPrefix( int index )
     {
@@ -660,7 +707,11 @@ public class Model
         return null;
     }
 
-
+    /**
+     * Accesses the namespace URI for the node at position <code>i</code>.
+     * @param node the node whose namespace URI is required
+     * @return the namespace URI for the node, or <code>null</code> if none exists
+     */
     public String getNamespaceURI( int node )
     {
         int index = node - rootIndex;
@@ -937,6 +988,13 @@ public class Model
 
     }*/
 
+    
+    
+    
+    /**
+     * Constructs a string representation of a given node for debugging purposes. 
+     * @param index the node to debug
+     */
     public String toString( int index )
     {
         String augText = null;
@@ -1013,7 +1071,10 @@ public class Model
         return url;
     }
 
-
+    /**
+     * Prints a string representation of the event stream for this model to 
+     * the debugger. Developer use only.
+     */
     public final void debugEvents()
     {
         StringBuffer s = new StringBuffer( this + " sys id=" + getSystemId() + " events=[" );
@@ -1232,7 +1293,10 @@ public class Model
         return null;
     }
 
-
+    /**
+     * Sets the builder.
+     * @param builder the builder to set
+     */
     public void setBuilder( Builder builder )
     {
         this.builder = builder;
@@ -1244,13 +1308,20 @@ public class Model
         return this.builder;
     }
 
-
+    /**
+     * Sets the parse time for debugging purposes.
+     * @param t the parse time in milliseconds
+     */
     public void setParseTime( long t )
     {
         this.parseTime = t;
     }
 
-
+    /**
+     * Accesses the line number of the node at position <code>i</code>
+     * @param i the node whose line number is required 
+     * @return the line number of the node at <code>i</code>
+     */
     public int getLineNumber( int i )
     {
         int context = i - rootIndex;
@@ -1267,7 +1338,11 @@ public class Model
                 - actualOrOffset + 1 );
     }
 
-
+    /**
+     * Accesses the column number of the node at position <code>i</code>
+     * @param i the node whose column number is required 
+     * @return the column number of the node at <code>i</code>
+     */
     public int getColumnNumber( int i )
     {
         int context = i - rootIndex;
@@ -1284,7 +1359,10 @@ public class Model
                 - actualOrOffset + 1 );
     }
 
-
+    /**
+     * Sets the system id of the document this model represents.
+     * @param url the system id to set
+     */
     public void setSystemId( String url )
     {
         this.url = url;
@@ -1298,20 +1376,30 @@ public class Model
                 + " hashcode=" + hashCode() + ">";
     }
 
-
+    /**
+     * Accesses the DOCTYPE system id for the document.
+     * @return the system id, or <code>null</code> is none exists
+     */
     public String getDoctypeSystemId()
     {
         return this.doctypeSystemId;
     }
 
-
+    /**
+     * Accesses the DOCTYPE public id for the document.
+     * @return the public id, or <code>null</code> is none exists
+     */
     public String getDoctypePublicId()
     {
         return this.doctypePublicId;
     }
 
 
-    //TODO: implement xml:id
+    /**
+     * Retrieves an element node by its id.
+     * @param id the id of the element to retrieve
+     * @return the element with id <code>id</code>, or -1 if no such id exists
+     */
     public int getElementById( String id )
     {
         if( builder.getIdMap().containsKey( id ) )
@@ -1320,13 +1408,19 @@ public class Model
         return - 1;
     }
 
-
+    /**
+     * Sets the DOCTYPE system id.
+     * @param systemId the system id to set
+     */
     public void setDoctypeSystemId( String systemId )
     {
         this.doctypeSystemId = systemId;
     }
 
-
+    /**
+     * Sets the DOCTYPE public id.
+     * @param publicId the public id to set
+     */
     public void setDoctypePublicId( String publicId )
     {
         this.doctypePublicId = publicId;
@@ -1406,7 +1500,11 @@ public class Model
         throw new RuntimeException( "XML namespace not found" ); //sanity check
     }
 
-
+    /**
+     * Whether a node contains a CDATA section. 
+     * @param node the node to inspect
+     * @return whether <code>node</code> contains a CDATA section
+     */
     public boolean containsCDATASection( int node )
     {
         if( getType( node ) != Model.EV_TEXT )

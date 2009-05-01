@@ -9,6 +9,12 @@ import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Manages strings by storing them in a hash table.  
+ * @author andrews
+ *
+ * $Id$
+ */
 public class HashingStringHandler implements StringHandler
 {
     private HashMap stringMap;

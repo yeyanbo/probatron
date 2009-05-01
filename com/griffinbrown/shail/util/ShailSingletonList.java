@@ -61,7 +61,7 @@ public class ShailSingletonList extends ShailList
 
 
     /** 
-     * Returns 1.
+     * The singleton list always contains one item.
      * 
      * @return 1
      */

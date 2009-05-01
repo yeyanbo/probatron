@@ -64,7 +64,10 @@ public class ShailListIterator extends ShailIterator
         throw new IndexOutOfBoundsException();
     }
 
-
+    /**
+     * 
+     * @return
+     */
     public boolean hasPrevious()
     {
         return ( cursor - 1 ) >= 0;
@@ -88,7 +91,9 @@ public class ShailListIterator extends ShailIterator
         return cursor < list.numItems();
     }
 
-
+    /**
+     * Unsupported in this implementation.
+     */
     public void add( Object arg0 )
     {
         throw new UnsupportedOperationException();

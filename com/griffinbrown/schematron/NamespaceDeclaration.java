@@ -23,7 +23,7 @@
  */
 package com.griffinbrown.schematron;
 
-/*
+/**
  * Represents the declaration of a namespace in a Schematron schema.
  * 
  * @author andrews
@@ -61,7 +61,6 @@ public class NamespaceDeclaration
      * <p>Though declared as element <tt>ns</tt> in the Schematron namespace,
      * these appear, when reported in SVRL, as <tt>ns-prefix-in-attribute-values</tt> in the SVRL namespace.</p>
      * 
-     * @see org.silcn.NamespaceDeclaration#asNormalizedXml()
      */
     public String asNormalizedXml()
     {
