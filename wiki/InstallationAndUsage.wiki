@@ -16,7 +16,7 @@
 
 = Usage =
 
-  # Pass an XML instance and a Schematron schema to Probatron like so:
+  # Pass a Schematron schema and an XML document to Probatron like so:
 {{{
    java -jar path/to/probatron.jar mySchema.sch myInstance.xml
 }}}
