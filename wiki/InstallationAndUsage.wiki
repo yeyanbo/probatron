@@ -1,0 +1,23 @@
+#summary How to install and use Probatron
+
+= Installation =
+
+  # Ensure you have a Java runtime installed, version 1.4 or later.
+  # Download the binary distribution and unzip the file `probatron.jar` to a suitable location.
+  # Assuming you can invoke Java using the command `java`, at the command line type:
+{{{
+   java -jar path/to/probatron.jar
+}}}
+  You should see a copyright statement followed by this usage hint:
+{{{
+   usage: java org.probatron.Probatron [Schematron-schema] [XML-document]
+}}}
+
+
+= Usage =
+
+  # Pass an XML instance and a Schematron schema to Probatron like so:
+{{{
+   java -jar path/to/probatron.jar mySchema.sch myInstance.xml
+}}}
+  The results of the process should appear at standard output. By default, this is an SVRL report.
