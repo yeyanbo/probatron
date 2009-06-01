@@ -2,7 +2,7 @@
 
 = Installation =
 
-  # Ensure you have a Java runtime installed, version 1.4 or later.
+  # Ensure you have a Java runtime installed, version 1.4 or later. Runtimes may be downloaded e.g. from [http://java.com].
   # Download the binary distribution and unzip the file `probatron.jar` to a suitable location.
   # Assuming you can invoke Java using the command `java`, at the command line type:
 {{{
