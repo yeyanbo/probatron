@@ -30,7 +30,7 @@ Set a system property or properties like so:
    java -Dmy-system-property=value -jar probatron.jar ...
 }}}
 
-===Report format===
+Available properties are set out in the table below.
 
 ||Property||Values||Function||
 ||`error-format`||`xml`, `text`||Switches between plain-text output and SVRL report||
