@@ -20,4 +20,4 @@
 {{{
    java -jar path/to/probatron.jar mySchema.sch myInstance.xml
 }}}
-  The results of the process should appear at standard output and can be redirected in the usual ways. By default, an SVRL document is emitted. Processing errors appear at standard error.
+  The results of the process should appear at standard output and can be redirected in the usual ways. By default a plain-text report is emitted. Processing errors appear at standard error.
