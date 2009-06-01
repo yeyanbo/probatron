@@ -21,3 +21,16 @@
    java -jar path/to/probatron.jar mySchema.sch myInstance.xml
 }}}
   The results of the process should appear at standard output and can be redirected in the usual ways. By default a plain-text report is emitted. Processing errors appear at standard error.
+
+==Configuration==
+
+System properties can be used to configure how the application behaves.
+Set a system property or properties like so:
+{{{
+   java -Dmy-system-property=value -jar probatron.jar ...
+}}}
+
+===Report format===
+
+||Property||Values||Function||
+||`error-format`||`xml`, `text`||Switches between plain-text output and SVRL report||
