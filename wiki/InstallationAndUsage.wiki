@@ -33,5 +33,5 @@ Set a system property or properties like so:
 Available properties are set out in the table below.
 
 ||Property||Values||Function||
-||`error-format`||`xml`, `text`||Switches between plain-text output and SVRL report||
+||`error-format`||`xml`, `text`||Switches between plain-text output and SVRL report. The default value is `text`.||
 ||`relaxng-schema-location`||a URI||Switches on validation against the `RELAX NG` schema at the specified location, resolved against the current working directory||
