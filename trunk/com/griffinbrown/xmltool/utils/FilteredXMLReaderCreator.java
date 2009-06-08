@@ -27,12 +27,12 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import com.griffinbrown.xmltool.Constants;
 import com.thaiopensource.xml.sax.XMLReaderCreator;
 
 /**
- * @author andrews
- *
- * Class to represent 
+ * Instantiates an XML parser for use under Jing.
+ * @see com.thaiopensource.xml.sax.XMLReaderCreator
  */
 public class FilteredXMLReaderCreator implements XMLReaderCreator
 {
@@ -47,7 +47,10 @@ public class FilteredXMLReaderCreator implements XMLReaderCreator
     //        System.err.println(this);
     }
 
-
+    /**
+     * Constructor for use with an existing <code>XMLReader</code>.
+     * @param reader the existing reader
+     */
     public FilteredXMLReaderCreator( XMLReader reader )
     {
         this.reader = reader;
@@ -55,7 +58,17 @@ public class FilteredXMLReaderCreator implements XMLReaderCreator
 
 
     /**
-     * @see com.thaiopensource.xml.sax.XMLReaderCreator#createXMLReader()
+     * <p>Creates an XMLReader by loading the class specified by the system property
+     * <code>org.xml.sax.driver</code>.</p>
+     * <p>The value of {@link Constants#DEFAULT_SAX_DRIVER} is used if <code>org.xml.sax.driver</code> is not specified.</p>
+     * <p>The resulting reader will have the features:</p>
+     * <p><code>http://xml.org/sax/features/namespaces</code> and<br/>
+     *  <code>http://apache.org/xml/features/xinclude</code></p>
+     * <p>set to true and </p>
+     * <p><code>http://apache.org/xml/features/xinclude/fixup-base-uris</code></p>
+     * set to false. Any exceptions thrown in setting these features are reported and the reader is returned.</p> 
+     * 
+     * @return a XML parser (XInclude and namespace aware, if compatible) 
      */
     public XMLReader createXMLReader() throws SAXException
     {

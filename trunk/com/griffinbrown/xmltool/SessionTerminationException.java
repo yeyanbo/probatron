@@ -23,6 +23,15 @@
  */
 package com.griffinbrown.xmltool;
 
+/**
+ * An exception signalling the termination of a processing session.
+ * An exception of this type may be used to notify clients that the session
+ * is ending without terminating the virtual machine.
+ * 
+ * @author andrews
+ *
+ * $Id$
+ */
 public class SessionTerminationException extends RuntimeException
 {
 

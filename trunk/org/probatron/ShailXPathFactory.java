@@ -25,6 +25,9 @@ package org.probatron;
 
 import com.griffinbrown.xmltool.utils.XPathFactory;
 
+/**
+ * Factory for XPaths specifically for evaluation against Shail documents.
+ */
 public class ShailXPathFactory implements XPathFactory
 {
 

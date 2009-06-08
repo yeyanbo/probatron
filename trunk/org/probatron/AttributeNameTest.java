@@ -22,10 +22,7 @@ package org.probatron;
 
 
 /**
- * @author andrews
- *
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
+ * An attribute name as part of an XPath locator.
  */
 public class AttributeNameTest extends NodeTest
 {
@@ -49,7 +46,8 @@ public class AttributeNameTest extends NodeTest
 
 
     /**
-     * @return qualified name for this test.
+     * Accesses the qualified name for this test.
+     * @return qualified name for this test
      */
     public String getQName()
     {
@@ -58,6 +56,7 @@ public class AttributeNameTest extends NodeTest
 
 
     /**
+     * Accesses the NCName for this test.
      * @return the <code>NCName</code> for this test.
      */
     public String getNCName()
@@ -65,13 +64,6 @@ public class AttributeNameTest extends NodeTest
         return this.namespacePrefix;
     }
 
-
-    /**
-     * N.B. Attribute NameTests don't have a positional predicate.
-     * 
-     * @see NodeTest#getValue()
-     * 
-     */
     public String getValue()
     {
         if( this.namespacePrefix != null )

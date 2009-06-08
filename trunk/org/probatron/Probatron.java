@@ -1,21 +1,18 @@
 /*
- * Copyright 2009 Griffin Brown Digital Publishing Ltd
- * All rights reserved.
- *
- * This file is part of Probatron.
- *
- * Probatron is free software: you can redistribute it and/or modify
- * it under the terms of the Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2009 Griffin Brown Digital Publishing Ltd All rights reserved.
  * 
- * Probatron is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * Affero General Public License for more details.
- *
- * You should have received a copy of the Affero General Public License
- * along with Probatron.  If not, see <http://www.gnu.org/licenses/>.
+ * This file is part of Probatron.
+ * 
+ * Probatron is free software: you can redistribute it and/or modify it under the terms of the
+ * Affero General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * Probatron is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * the Affero General Public License for more details.
+ * 
+ * You should have received a copy of the Affero General Public License along with Probatron. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 
 /**
@@ -32,7 +29,8 @@
  * 
  * See http://xml.apache.org for further details of Apache software.
  * 
- * Internal revision information: @version $Id: Probatron.java,v 1.1 2009/02/11 08:52:55 GBDP\andrews Exp $
+ * Internal revision information: @version $Id: Probatron.java,v 1.1 2009/02/11 08:52:55
+ * GBDP\andrews Exp $
  * 
  */
 
@@ -118,7 +116,7 @@
  */
 
 /*
- * XMLProbe
+ * Probatron
  * 
  * Copyright (c) 2003 Griffin Brown Digital Publishing Ltd. All rights reserved.
  * 
@@ -142,18 +140,26 @@ import com.griffinbrown.xmltool.XMLToolException;
 import com.griffinbrown.xmltool.utils.Utils;
 
 /**
- * Class to represent XMLProbe's command-line interface.
- * For information on how to invoke XMLProbe programmatically, see 
- * <a href='doc-files/invoking-xmlprobe.htm'>this document</a>.
+ * Class to represent Probatron's command-line interface. For information on how to invoke
+ * Probatron programmatically, see <a href='doc-files/invoking-probatron.htm'>this document</a>.
  */
 public class Probatron implements Application
 {
     private static final String CVS_REVISION_DATE = "$Date: 2009/01/13 10:38:22";
 
-    //XMLProbe
-    public static final String VERSION = "0.1a";
+    //Probatron
+    private static final String VERSION = "0.1a";
+
+    /**
+     * The Probatron namespace.
+     */
     public static final String PROBATRON_NS = "http://probatron.org/200901";
+
+    /**
+     * The Probatron features prefix.
+     */
     public static final String FEATURES_PREFIX = "http://probatron.org/features/";
+
     private static final Probatron theInstance = new Probatron();
     private static HashMap props = new HashMap() {
         {
@@ -169,12 +175,16 @@ public class Probatron implements Application
     //features
     static final String BATCH_PROCESS = "batch-processing-mode";
     static final String OPTIMISE_REPORTS = "optimise-reports";
-    public static final String EMIT_RULESET = "emit-normalized-ruleset";
+    static final String EMIT_RULESET = "emit-normalized-ruleset";
     private static final Logger logger = Logger.getLogger( Probatron.class );
     private static boolean isLoggerInitialized;
 
 
-    protected static void initLogger( String[] args )
+    /**
+     * Initializes the application logging framework.
+     * @param args
+     */
+    private static void initLogger( String[] args )
     {
         String logLvl = "INFO";
 
@@ -201,7 +211,7 @@ public class Probatron implements Application
     }
 
 
-    protected static boolean isLoggerInitialized()
+    private static boolean isLoggerInitialized()
     {
         return isLoggerInitialized;
     }
@@ -269,6 +279,10 @@ public class Probatron implements Application
     }
 
 
+    /**
+     * Entry point for the Probatron application.
+     * @param argv command-line arguments
+     */
     public static void main( String[] argv )
     {
         initLogger( argv );
@@ -291,7 +305,7 @@ public class Probatron implements Application
     }
 
 
-    public static final String buildId()
+    private static final String buildId()
     {
         String dateNorm = CVS_REVISION_DATE.replaceAll( "[^0-9]+", "" );
 
@@ -301,16 +315,7 @@ public class Probatron implements Application
 
 
     /**
-     * @return the class which extensions to this application should extend 
-     */
-    public static Class extensionClass()
-    {
-        return Constants.ADD_IN_CLASS;
-    }
-
-
-    /**
-     * @see com.griffinbrown.xmltool.Application#featuresPrefix()
+     * @return {@link #FEATURES_PREFIX}
      */
     public String featuresPrefix()
     {
@@ -330,7 +335,7 @@ public class Probatron implements Application
 
 
     /**
-     * @see com.griffinbrown.xmltool.Application#name()
+     * @return the string "<tt>Probatron</tt>"
      */
     public String name()
     {
@@ -339,7 +344,7 @@ public class Probatron implements Application
 
 
     /**
-     * @see com.griffinbrown.xmltool.Application#namespacePrefix()
+     * @return the string "<tt>probe</tt>"
      */
     public String namespacePrefix()
     {
@@ -348,7 +353,7 @@ public class Probatron implements Application
 
 
     /**
-     * @see com.griffinbrown.xmltool.Application#namespaceUri()
+     * @return {@link #PROBATRON_NS}
      */
     public String namespaceUri()
     {
@@ -359,7 +364,7 @@ public class Probatron implements Application
     /**
      * Accesses an immutable instance, for cases where a reference to the application
      * is required. 
-     * @return an immutable XMLProbe instance
+     * @return an immutable Probatron instance
      */
     public static Probatron getInstance()
     {
@@ -367,9 +372,6 @@ public class Probatron implements Application
     }
 
 
-    /**
-     * @see com.griffinbrown.xmltool.Application#getProperty(java.lang.String)
-     */
     public Object getProperty( String name )
     {
         return props.get( name );

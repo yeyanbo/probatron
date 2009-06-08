@@ -26,11 +26,24 @@ package com.griffinbrown.xmltool.utils;
 import org.probatron.jaxen.JaxenException;
 import org.probatron.jaxen.XPath;
 
+/**
+ * Utilities for evaluating XPath expressions. 
+ * @author andrews
+ *
+ * $Id$
+ */
 public class XPathUtils
 {
     private XPathUtils()
     {}
     
+    /**
+     * Compiles an XPath expression using a specified factory.
+     * Compilation errors are reported to standard error.
+     * @param expr the expression to compile
+     * @param xpathFactory the factory to use
+     * @return the XPath expression as an object, or <code>null</code> if compilation fails
+     */
     public static Object compileXPathExpression( String expr, XPathFactory xpathFactory )
     {
         XPath compiled = null;
@@ -52,7 +65,13 @@ public class XPathUtils
         return compiled;
     }
 
-
+    /**
+     * Evaluates a compiled XPath expression against a given context.
+     * Evaluation errors are reported to standard error.
+     * @param context the context for evaluation
+     * @param compiledExpr the compiled expression
+     * @return the result of the evaluation (one of the four XPath 1.0 return types), or <code>null</code> on failure
+     */
     public static Object evaluateXPath( Object context, Object compiledExpr )
     {
         Object result = null;
@@ -67,10 +86,5 @@ public class XPathUtils
             return null;
         }
         return result;
-    }
-    
-    public static Object evaluateXPath( Object context, String expr, XPathFactory xpathFactory )
-    {
-        return evaluateXPath( context, compileXPathExpression( expr, xpathFactory ) );
     }
 }

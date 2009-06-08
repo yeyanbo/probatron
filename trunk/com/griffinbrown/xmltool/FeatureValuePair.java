@@ -29,22 +29,17 @@ public class FeatureValuePair
 {
     private String name = null;
     private String value = null;
-//    private Node node = null;
 
-
+    /**
+     * Constructor for normal use.
+     * @param name the name of the feature
+     * @param value the value associated with the feature
+     */
     public FeatureValuePair( String name, String value )
     {
         this.name = name;
         this.value = value;
     }
-
-
-//    FeatureValuePair( String name, String value, Node node )
-//    {
-//        this.name = name;
-//        this.value = value;
-//        this.node = node;
-//    }
 
 
     /**
@@ -65,10 +60,5 @@ public class FeatureValuePair
     {
         return value;
     }
-    
-//    public Node getNode()
-//    {
-//        return node;
-//    }
 
 }

@@ -36,7 +36,7 @@ import org.xml.sax.SAXException;
  *
  * Class to represent
  */
-public class CustomEntityResolver implements EntityResolver
+class CustomEntityResolver implements EntityResolver
 {
 	private HashMap map = new HashMap();
 	private boolean debug;

@@ -42,7 +42,7 @@ import org.probatron.jaxen.saxpath.XPathHandler;
 
 import com.griffinbrown.shail.expr.ShailXPathFactory;
 
-public class ShailHandler implements XPathHandler
+class ShailHandler implements XPathHandler
 {
 
     private XPathFactory xpathFactory;

@@ -23,7 +23,7 @@ package org.probatron;
 
 /**
  * 
- * 
+ * A comment as part of an XPath locator.
  * 
  * @author andrews
  * @version $Revision: 1.1 $

@@ -113,7 +113,14 @@ public class UnparsedEntityDecl extends XmlConstruct
 	private String _systemId;
 	private String _notationName;
 
-
+	/**
+	 * Constructor for normal use.
+	 * @param inst the instance the declaration belongs to
+	 * @param name the name of the entity
+	 * @param publicId the public identifier for the entity
+	 * @param systemId the system identifier for the entity
+	 * @param notationName the notation name for the entity
+	 */
 	public UnparsedEntityDecl( Instance inst, String name, String publicId, String systemId, String notationName )
 	{
 

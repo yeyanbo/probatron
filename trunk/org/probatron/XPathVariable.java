@@ -30,10 +30,8 @@ import com.griffinbrown.xmltool.XMLToolException;
 
 /**
  * Class to represent a variable as part of an XPath expression.
- * 
- * @author andrews
  */
-public class XPathVariable implements Variable
+public abstract class XPathVariable implements Variable
 {
     private String namespaceURI;
     private String name;
@@ -127,15 +125,11 @@ public class XPathVariable implements Variable
         return this.expr;
     }
 
-
-    public String asNormalizedXml()
-    {
-        StringBuffer buf = new StringBuffer();
-        buf.append( "\n\n<variable xmlns='" ).append( Probatron.PROBATRON_NS ).append(
-                "'>\n<name>" ).append( name ).append( "</name>\n" ).append( "<eval>" ).append(
-                expr ).append( "</eval>\n" ).append( "</variable>" );
-        return buf.toString();
-    }
+    /**
+     * Retrieves a representation of the variable as normalized XML.
+     * @return 
+     */
+    public abstract String asNormalizedXml();
 
 
     public String toString()

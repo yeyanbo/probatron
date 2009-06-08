@@ -22,14 +22,7 @@ package org.probatron;
 
 
 /**
- * 
- * 
- * 
- * @author andrews
- * @version $Revision: 1.1 $
- * 
- * @version $Id: Text.java,v 1.1 2009/02/11 08:52:55 GBDP\andrews Exp $
- * 
+ * A text node as part of an XPath locator. 
  */
 public class Text extends NodeTest
 {

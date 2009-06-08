@@ -23,7 +23,19 @@
  */
 package com.griffinbrown.xmltool.utils;
 
+/**
+ * Factory for XPath expressions.
+ * @author andrews
+ *
+ * $Id$
+ */
 public interface XPathFactory
 {
+    /**
+     * Creates an XPath object.
+     * @param expression the XPath expression
+     * @return the expression as an object
+     * @throws Exception if syntax or other general problems occur in creating the XPath object
+     */
     Object createXPath( String expression ) throws Exception;
 }

@@ -83,4 +83,11 @@ public class LocalXPathVariable extends XPathVariable
         evaluator.setLocalVariableValue( getNamespaceURI(), getName(), result );
         return result;
     }
+
+
+    public String asNormalizedXml()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

@@ -30,39 +30,46 @@ import java.util.HashMap;
 import com.griffinbrown.xmltool.Session;
 
 /**
- * Interface to represent quality assurance using XPath. 
+ * Handles the evaluation of queries against XML documents.
  */
 public interface QueryHandler
 {
 	/**
-	 * @see com.xmlprobe.QAHandler_12#getLocatorForNode(java.lang.Object)
+	 * Retrieves the SAX locator for a given node.
+	 * @param node the node whose locator is required 
+	 * @return locator for the node
 	 */
-	public abstract Object getLocatorForNode(int o);
+	public abstract Object getLocatorForNode(int node);
 	
 	/**
-	 * Evaluates any XPathQueries registered with the handler and requests them
+	 * Evaluates any queries registered with the query evaluator and requests them 
 	 * to report their results.
-	 * @param doc
+	 * @param doc the document against which the queries should be evaluated
+	 * @see #getEvaluator()
 	 */
 	public void evaluateQueries(int doc);
 	
-	public boolean useXPathLocators();
-	
-	public boolean isTimingEval();
-	
 	/**
-	 * Whether the handler produces many DOM documents from one instance, e.g.
-	 * when processing very large instances.
-	 * This is mainly significant when generating XPath locators - references to
-	 * a single root element are no longer meaningful.  
+	 * Accesses the application session in which this handler is active. 
+	 * @return an application session
 	 */
-	public boolean handlesMultipleDocs();
-	
 	public Session getSession();
 	
+	/**
+	 * Accesses the evaluator for queries registered with a session of processing. 
+	 * @return the registered query evaluator
+	 */
 	QueryEvaluator getEvaluator();
 	
-	void setEvaluator( QueryEvaluator eval );
+	/**
+	 * Sets the evaluator for queries registered with a session of processing.
+	 * @param evaluator the query evaluator
+	 */
+	void setEvaluator( QueryEvaluator evaluator );
     
+	/**
+	 * Adds a hashmap of nodes to their locators.  
+	 * @param map a mapping of nodes to locators 
+	 */
     void addLocatorMap( HashMap map );
 }

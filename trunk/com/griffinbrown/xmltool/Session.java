@@ -1,21 +1,18 @@
 /*
- * Copyright 2009 Griffin Brown Digital Publishing Ltd
- * All rights reserved.
- *
- * This file is part of Probatron.
- *
- * Probatron is free software: you can redistribute it and/or modify
- * it under the terms of the Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2009 Griffin Brown Digital Publishing Ltd All rights reserved.
  * 
- * Probatron is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * Affero General Public License for more details.
- *
- * You should have received a copy of the Affero General Public License
- * along with Probatron.  If not, see <http://www.gnu.org/licenses/>.
+ * This file is part of Probatron.
+ * 
+ * Probatron is free software: you can redistribute it and/or modify it under the terms of the
+ * Affero General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * Probatron is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * the Affero General Public License for more details.
+ * 
+ * You should have received a copy of the Affero General Public License along with Probatron. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.griffinbrown.xmltool;
@@ -32,7 +29,7 @@ import org.xml.sax.XMLReader;
 import com.griffinbrown.schematron.NamespaceDeclaration;
 
 /**
- * A generic XMLTool processing session.
+ * A generic processing session.
  */
 public interface Session extends Runnable
 {
@@ -74,6 +71,7 @@ public interface Session extends Runnable
     /**
      * Whether parser warnings should be included in the error report
      * for this session.
+     * @return whether parser warnings should be included  
      */
     boolean issueWarnings();
 
@@ -138,13 +136,14 @@ public interface Session extends Runnable
 
 
     /**
-     * @return <code>Date</code> object representing the time parsing in this
-     * session commenced, for reporting purposes.
+     * Accesses the precise starting point of processing under this session.  
+     * @return the starting point of processing
      */
     Date getStart();
 
 
     /**
+     * Whether an activity log for this session is displayed to the user. 
      * @return whether the activity log for this session is output
      */
     boolean isLogShown();
@@ -185,14 +184,15 @@ public interface Session extends Runnable
 
 
     /**
-     * Sets the sys id for the output.
+     * Sets the system  identifier for the output.
      * @param sysId sys id of the output
      */
     void setOutputFile( String sysId );
 
 
     /**
-     * Aborts this session.
+     * Aborts this session with the specified exit code.
+     * @param exitCode the exit code
      */
     void terminate( int exitCode );
 
@@ -244,28 +244,65 @@ public interface Session extends Runnable
      */
     void run();
 
-
+    /**
+     * Flags this session as having or not having a parent session.
+     * @param b whether this session has a parent session
+     * @see #hasParentSession()
+     */
     void setParent( boolean b );
 
 
+    /**
+     * Whether this session has a parent session.
+     * This method may be used by implementations which support nesting of sessions.
+     * Session nesting may facilitate e.g. batch processing of documents, outputting of
+     * composite reports etc. 
+     * @return whether this session has a parent session.
+     * @see #setParent(boolean)
+     */
     boolean hasParentSession();
 
-
+    /**
+     * Sets the message handler the session will use.
+     * @param mh the message handler to use
+     */
     void setMessageHandler( MessageHandler mh );
 
 
+    /**
+     * Accesses the message handler for this session.
+     * @return the message handler for this session
+     */
     MessageHandler getMessageHandler();
 
 
+    /**
+     * Accesses the SAX-based content handler active for this session.
+     * @return the content handler for this session
+     */
     ContentHandler getContentHandler();
 
 
+    /**
+     * Whether this session is terminating.  
+     * @return whether the session is terminating
+     * @see #onExit()
+     * @see #terminate(int) 
+     */
     boolean isTerminating();
 
-
+    /**
+     * Sets the output stream for this session.
+     * @param out the output stream for this session
+     */
     void setPrintStream( PrintStream out );
 
 
+    /**
+     * Access the output stream for this session.
+     * Messages displayed to the user typically appear on this stream.
+     * @return the output stream for this session
+     */
     OutputStream getPrintStream();
 
 
@@ -282,13 +319,24 @@ public interface Session extends Runnable
      */
     void setEmitReportAutomatically( boolean b );
 
-
+    /**
+     * Specifies the configuration for this session
+     * @param config the specified configuration
+     */
     void setConfig( Configuration config );
 
 
+    /**
+     * Access the report emitter for this session.
+     * @return the report emitter for this session
+     */
     ReportEmitter getReportEmitter();
 
-
+    /**
+     * Sets the report emitter for this session.
+     * 
+     * @param emitter the report emitter
+     */
     void setReportEmitter( ReportEmitter emitter );
 
 }

@@ -1,21 +1,18 @@
 /*
- * Copyright 2009 Griffin Brown Digital Publishing Ltd
- * All rights reserved.
- *
- * This file is part of Probatron.
- *
- * Probatron is free software: you can redistribute it and/or modify
- * it under the terms of the Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2009 Griffin Brown Digital Publishing Ltd All rights reserved.
  * 
- * Probatron is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * Affero General Public License for more details.
- *
- * You should have received a copy of the Affero General Public License
- * along with Probatron.  If not, see <http://www.gnu.org/licenses/>.
+ * This file is part of Probatron.
+ * 
+ * Probatron is free software: you can redistribute it and/or modify it under the terms of the
+ * Affero General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * Probatron is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * the Affero General Public License for more details.
+ * 
+ * You should have received a copy of the Affero General Public License along with Probatron. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.griffinbrown.xmltool;
@@ -28,15 +25,15 @@ import org.xml.sax.helpers.LocatorImpl;
 import com.griffinbrown.xmltool.utils.Utils;
 
 /**
- * Represents messages shown to the user relating to a {@link Session} and
- * its configuration, and to user-defined error messages.
- *
- *
+ * Represents messages shown to the user relating to a {@link Session} and its configuration,
+ * and to user-defined error messages.
+ * 
+ * 
  * @author andrews
+ * 
  * @version $Revision: 1.2 $
- *
+ * 
  * @version $Id: SessionMessage.java,v 1.2 2009/02/11 08:52:53 GBDP\andrews Exp $
- *
  */
 public class SessionMessage implements Message, Comparable
 {
@@ -53,6 +50,9 @@ public class SessionMessage implements Message, Comparable
 
     /**
      * Default constructor.
+     * @param app the application thes session belongs to
+     * @param type the message type
+     * @param message the message
      */
     public SessionMessage( Application app, String type, String message )
     {
@@ -65,6 +65,10 @@ public class SessionMessage implements Message, Comparable
     /**
      * Constructor providing a reference to the <code>Extension</code> where
      * this message originates.
+     * @param app the application thes session belongs to
+     * @param type the message type
+     * @param message the message
+     * @param relatedAddIn the plug-in the message relates to
      */
     public SessionMessage( Application app, String type, String message, String relatedAddIn )
     {
@@ -77,6 +81,9 @@ public class SessionMessage implements Message, Comparable
 
     /**
      * Constructor for providing location details from an internal SAX parse.
+     * @param app the application thes session belongs to
+     * @param type the message type
+     * @param se the exception relating to this message
      */
     public SessionMessage( Application app, String type, SAXException se )
     {
@@ -89,6 +96,9 @@ public class SessionMessage implements Message, Comparable
 
     /**
      * Constructor for providing location details from an internal SAX parse.
+     * @param app the application thes session belongs to
+     * @param type the message type
+     * @param spe the exception relating to this message
      */
     public SessionMessage( Application app, String type, SAXParseException spe )
     {
@@ -101,7 +111,8 @@ public class SessionMessage implements Message, Comparable
 
     /**
      * Constructor providing a simple string message and SAX locator.
-     * @param severity severity of this message; @see SessionMessage
+     * @param app the application thes session belongs to
+     * @param type message type
      * @param message string of this message
      * @param loc SAX locator for this message
      */
@@ -113,7 +124,14 @@ public class SessionMessage implements Message, Comparable
         this.locator = loc;
     }
 
-
+    /**
+     * Constructor providing a simple string message, SAX locator and XPath locator.
+     * @param app the application thes session belongs to
+     * @param type message type
+     * @param message string of this message
+     * @param loc SAX locator for this message
+     * @param xpl XPath locator for this message
+     */
     public SessionMessage( Application app, String type, String message, LocatorImpl loc,
             XPathLocator xpl )
     {
@@ -334,9 +352,4 @@ public class SessionMessage implements Message, Comparable
         return null;
     }
 
-
-    public Application getApplication()
-    {
-        return app;
-    }
 }

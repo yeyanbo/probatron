@@ -202,7 +202,9 @@ public class ParseMessage implements Message, Comparable
 
 
     /**
-     * @return The system id of the instance containing the error
+     * Accesses the system identifier of the SAX locator associated with this message.
+     * @return the system id of the instance containing the error
+     * if present; otherwise <code>null</code>
      */
     public String getLocatorSystemId()
     {
@@ -211,8 +213,9 @@ public class ParseMessage implements Message, Comparable
 
 
     /**
-     * @return The public id of the instance containing the error
-     * if present; otherwise null.
+     * Accesses the public identifier of the SAX locator associated with this message.
+     * @return the public id of the instance containing the error
+     * if present; otherwise <code>null</code>
      */
     public String getLocatorPublicId()
     {
@@ -221,7 +224,7 @@ public class ParseMessage implements Message, Comparable
 
 
     /**
-     * @return The line number of the current error.
+     * @return the line number of the current error
      */
     public int getLineNumber()
     {
@@ -230,7 +233,7 @@ public class ParseMessage implements Message, Comparable
 
 
     /**
-     * @return The column number of the current error.
+     * @return the column number of the current error
      */
     public int getColumnNumber()
     {
@@ -245,7 +248,9 @@ public class ParseMessage implements Message, Comparable
 
 
     /**
-     * @return The filename and extension from a system id.
+     * Accesses the local part of the system identifier for this message.
+     * @return the local part of the system id
+     * @see #getSystemId()
      */
     public String getLocalSysId()
     {
@@ -344,6 +349,10 @@ public class ParseMessage implements Message, Comparable
 
 
     ///////NON-INTERFACE METHODS////////////
+    
+    /**
+     * Sets the XPath locator for this message.
+     */
     public void setXPathLocator( XPathLocator xpl )
     {
         this.xpl = xpl;

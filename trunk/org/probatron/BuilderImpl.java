@@ -50,6 +50,12 @@ import com.griffinbrown.xmltool.Instance;
 import com.griffinbrown.xmltool.ParseMessage;
 import com.griffinbrown.xmltool.Session;
 
+/**
+ * A document builder for Shail documents. 
+ * @author andrews
+ *
+ * $Id$
+ */
 public class BuilderImpl extends Extension implements Builder
 {
     private ByteArrayOutputStream eventStream;
@@ -61,7 +67,7 @@ public class BuilderImpl extends Extension implements Builder
     private byte[] events;
 
     //logger
-    public static final Logger logger = Logger.getLogger( BuilderImpl.class );
+    static final Logger logger = Logger.getLogger( BuilderImpl.class );
 
     private Session session;
     private ParseEventForwarder parseEventForwarder;
@@ -81,7 +87,7 @@ public class BuilderImpl extends Extension implements Builder
     private int lastLineNumberIndex;
     private int lastColumnNumberIndex;
 
-    protected static final String FEATURE_INCLUDE_PHYSICAL_LOCATORS = "include-physical-locators";
+    static final String FEATURE_INCLUDE_PHYSICAL_LOCATORS = "include-physical-locators";
     private static final String XML_NS = "http://www.w3.org/XML/1998/namespace";
     private static final String XML_PREFIX = "xmlns:xml";
     private boolean includePhysicalLocators = true;
@@ -90,9 +96,9 @@ public class BuilderImpl extends Extension implements Builder
 
 
     /**
-     * Constructor for use within XMLProbe.
-     * @param instance
-     * @param session
+     * Constructor for use within Probatron.
+     * @param instance the instance to be processed
+     * @param session the owner session
      */
     public BuilderImpl( Instance instance, Session session )
     {
@@ -107,7 +113,7 @@ public class BuilderImpl extends Extension implements Builder
 
     /**
      * Constructor for general use.
-     * N.B. <strong>Not</strong> intended for use within XMLProbe (use @see {@link BuilderImpl#Builder(Instance, Session)} instead.)
+     * N.B. <strong>Not</strong> intended for use within Probatron (use @see {@link BuilderImpl#Builder(Instance, Session)} instead.)
      * Constructs a Shail builder with default options.
      *  
      * @throws SAXException
@@ -129,14 +135,17 @@ public class BuilderImpl extends Extension implements Builder
         xmlReader.setFeature( "http://xml.org/sax/features/namespaces", true );
     }
 
-
+    /**
+     * Accesses the model constructed by the builder. 
+     * @return the model constructed by the builder
+     */
     protected Model getModel()
     {
         return this.model;
     }
 
 
-    protected void flushContentBuffer()
+    void flushContentBuffer()
     {
         if( this.text.length() > 0 )
         {
@@ -169,7 +178,7 @@ public class BuilderImpl extends Extension implements Builder
     }
 
 
-    protected final void resetContentBuffer()
+    private final void resetContentBuffer()
     {
         this.text = new StringBuffer();
     }
@@ -184,7 +193,7 @@ public class BuilderImpl extends Extension implements Builder
     }
 
 
-    protected final void reset()
+    private final void reset()
     {
         resetContentBuffer();
         resetLocators();
@@ -290,7 +299,6 @@ public class BuilderImpl extends Extension implements Builder
     {
         this.locator = locator;
     }
-
 
     public void skippedEntity( String arg0 )
     {}
@@ -554,9 +562,9 @@ public class BuilderImpl extends Extension implements Builder
 
 
     /**
-     * Returns a document by parsing the URL passed in.
+     * Parses the document at the URL passed in.
      * Note that this is for Shail-specific use and is not called 
-     * when a Builder is used under XMLProbe.   
+     * when a Builder is used under Probatron.   
      * @param url the URL to parse
      * @return
      * @throws SAXException
@@ -622,13 +630,13 @@ public class BuilderImpl extends Extension implements Builder
     /**
      * @return the parseEventForwarder
      */
-    public ParseEventForwarder getParseEventForwarder()
+    private ParseEventForwarder getParseEventForwarder()
     {
         return parseEventForwarder;
     }
 
 
-    public void setStringHandler( StringHandler sh )
+    private void setStringHandler( StringHandler sh )
     {
         this.stringHandler = sh;
         stringHandler.setBuilder( this );
@@ -875,7 +883,7 @@ public class BuilderImpl extends Extension implements Builder
 
 
     /**
-     * 
+     * Accesses the latest node added to the tree.
      * @return the current node <strong>plus any offset for the root node</strong>
      */
     public int getCurrentNode()
@@ -890,13 +898,13 @@ public class BuilderImpl extends Extension implements Builder
     }
 
 
-    protected void setTextLocator()
+    private void setTextLocator()
     {
         textLoc = new LocatorImpl( locator ); //keep a copy of it
     }
 
 
-    protected boolean isInDTD()
+    private boolean isInDTD()
     {
         return inDTD;
     }

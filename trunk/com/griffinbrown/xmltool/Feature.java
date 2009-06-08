@@ -94,7 +94,7 @@ import java.util.List;
  */
 public class Feature
 {
-    protected List attributes = new ArrayList();
+    private List attributes = new ArrayList();
     private String name;
 
 
@@ -109,7 +109,10 @@ public class Feature
         this.name = name;
     }
 
-
+    /**
+     * Accesses the name of this feature.
+     * @return the name of the feature
+     */
     public String getName()
     {
         return name;
@@ -135,7 +138,10 @@ public class Feature
 //        attributes.add( new FeatureValuePair( name, value, node ) );
 //    }
 
-
+    /**
+     * Accesses the (XML) attributes for this feature.
+     * @return a list of attributes, stored as {@link FeatureValuePair}s 
+     */
     public List getAttributes()
     {
         return attributes;

@@ -128,7 +128,13 @@ public class ElemTypeDecl extends XmlConstruct implements Comparable
 	private ArrayList _atts = new ArrayList();
 	private HashMap categorizedAttDecls = new HashMap();	
 	
-	
+	/**
+	 * Constructor for normal use.
+	 * @param inst the instance the declaration belongs to
+	 * @param name the name of the element
+	 * @param cm the element content model
+	 * @param loc SAX locator for the declaration
+	 */
 	public ElemTypeDecl( Instance inst, String name, String cm, LocatorImpl loc )
 	{
 		super( inst );
@@ -264,6 +270,10 @@ public class ElemTypeDecl extends XmlConstruct implements Comparable
 		return _parents.elements();
 	}
 
+	/**
+	 * Comparison method.
+	 * @return the result of comparing the strings of the element names
+	 */
 	public int compareTo( Object o )
 	{
 		ElemTypeDecl etd = (ElemTypeDecl)o;

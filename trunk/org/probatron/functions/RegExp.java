@@ -33,13 +33,6 @@ import com.griffinbrown.xmltool.SessionMessage;
 
 /**
  * Static regexp convenience methods.
- * Note that the methods used by com.xmlprobe.functions.RegExpFunction now only
- * compile the regexp once. 
- * 
- * @author andrews
- * @version $Revision: 1.2 $
- * 
- * @version $Id: RegExp.java,v 1.2 2009/02/11 08:52:53 GBDP\andrews Exp $
  * 
  */
 

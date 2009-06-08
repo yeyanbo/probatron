@@ -25,6 +25,9 @@ package org.probatron;
 
 import com.griffinbrown.xmltool.XMLToolException;
 
+/**
+ * A generic variable as part of an expression.
+ */
 public interface Variable
 {
     /**
@@ -32,13 +35,15 @@ public interface Variable
      * @return the declared expression
      */
     String getExpression();
-    
+
+
     /**
      * Accesses the name of a variable.
      * @return
      */
     String getName();
-    
+
+
     /**
      * Compiles the variable using the specified evaluator.
      * @return the compiled expression

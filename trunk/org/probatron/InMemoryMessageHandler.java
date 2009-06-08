@@ -53,9 +53,6 @@ public class InMemoryMessageHandler implements MessageHandler
     }
 
 
-    /**
-     * @see com.xmlprobe.MessageHandler#handle(com.griffinbrown.xmltool.Message)
-     */
     public void handle( Message msg )
     {
         //hash them by ID (type)

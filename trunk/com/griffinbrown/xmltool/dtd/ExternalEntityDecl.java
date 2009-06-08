@@ -103,7 +103,7 @@ import com.griffinbrown.xmltool.Instance;
 import com.griffinbrown.xmltool.XmlConstruct;
 
 /**
- * Class to represent entity declarations.
+ * Class to represent an external entity declaration.
  */
 
 public class ExternalEntityDecl extends XmlConstruct
@@ -112,7 +112,13 @@ public class ExternalEntityDecl extends XmlConstruct
 	private String pubId;
 	private String sysId;
 
-
+	/**
+	 * Constructor for normal use.
+	 * @param inst the instance the declaration belongs to 
+	 * @param name the name of the entity
+	 * @param pubId the public identifier for the entity
+	 * @param sysId the system identifier for the entity
+	 */	
 	public ExternalEntityDecl( Instance inst, String name, String pubId, String sysId )
 	{
 		super( inst );
@@ -136,7 +142,7 @@ public class ExternalEntityDecl extends XmlConstruct
 	}
 
 	/**
-	 * 
+	 * Accesses the name of the entity.
 	 * @return the name of the entity declared
 	 */
 	public String name()
@@ -145,7 +151,7 @@ public class ExternalEntityDecl extends XmlConstruct
 	}
 
 	/**
-	 * 
+	 * Accesses the public identifier for the entity.
 	 * @return the <code>PUBLIC</code> identifier of the entity declared 
 	 */
 	public String pubId()
@@ -154,7 +160,7 @@ public class ExternalEntityDecl extends XmlConstruct
 	}
 
 	/**
-	 * 
+	 * Accesses the system identifier for the entity.
 	 * @return the <code>SYSTEM</code> identifier of the entity declared
 	 */
 	public String sysId()

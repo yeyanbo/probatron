@@ -1,21 +1,18 @@
 /*
- * Copyright 2009 Griffin Brown Digital Publishing Ltd
- * All rights reserved.
- *
- * This file is part of Probatron.
- *
- * Probatron is free software: you can redistribute it and/or modify
- * it under the terms of the Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2009 Griffin Brown Digital Publishing Ltd All rights reserved.
  * 
- * Probatron is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * Affero General Public License for more details.
- *
- * You should have received a copy of the Affero General Public License
- * along with Probatron.  If not, see <http://www.gnu.org/licenses/>.
+ * This file is part of Probatron.
+ * 
+ * Probatron is free software: you can redistribute it and/or modify it under the terms of the
+ * Affero General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * Probatron is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * the Affero General Public License for more details.
+ * 
+ * You should have received a copy of the Affero General Public License along with Probatron. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -31,7 +28,13 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.probatron.Probatron;
 
-
+/**
+ * Class to represent the configuration for an application plug-in.
+ * 
+ * @author andrews
+ * 
+ * $Id$
+ */
 public class ExtensionConfiguration
 {
     private List features;
@@ -42,7 +45,11 @@ public class ExtensionConfiguration
     private Object extension;
     private static Logger logger = Logger.getLogger( ExtensionConfiguration.class );
 
-
+    /**
+     * Constructor for normal use.
+     * @param className name of class for which this is the configuration
+     * @throws ClassNotFoundException if the named class cannot be loaded 
+     */
     public ExtensionConfiguration( String className ) throws ClassNotFoundException
     {
         features = new ArrayList();
@@ -54,6 +61,11 @@ public class ExtensionConfiguration
     }
 
 
+    /**
+     * Adds a feature to the configuration.
+     * @param featureName the name of the feature to add
+     * @return the feature added
+     */
     public Feature addFeature( String featureName )
     {
         Feature feature = new Feature( featureName );
@@ -64,12 +76,20 @@ public class ExtensionConfiguration
     }
 
 
+    /**
+     * Accesses the features set for this configuration.
+     * @return a list of features for this configuration
+     */
     public List getFeatures()
     {
         return features;
     }
 
-
+    /**
+     * Sets a feature for this configuration.  
+     * @param featureName the name of the feature
+     * @param value the value to set
+     */
     public void setFeature( String featureName, String value )
     {
         Feature f = addFeature( featureName );
@@ -77,19 +97,18 @@ public class ExtensionConfiguration
     }
 
 
-//    public void setFeature( String featureName, List values )
-//    {
-//        Feature f = addFeature( featureName );
-//        Iterator iter = values.iterator();
-//        while( iter.hasNext() )
-//        {
-//            Node node = ( Node )iter.next();
-//            f.addAttribute( node.getName(), node.getStringValue(), node );
-//            if( logger.isDebugEnabled() )
-//                logger.debug( "added " + node.getName() + "=" + node.getStringValue() );
-//        }
-//    }
-
+    //    public void setFeature( String featureName, List values )
+    //    {
+    //        Feature f = addFeature( featureName );
+    //        Iterator iter = values.iterator();
+    //        while( iter.hasNext() )
+    //        {
+    //            Node node = ( Node )iter.next();
+    //            f.addAttribute( node.getName(), node.getStringValue(), node );
+    //            if( logger.isDebugEnabled() )
+    //                logger.debug( "added " + node.getName() + "=" + node.getStringValue() );
+    //        }
+    //    }
 
     /**
      * @return whether the class implements interface <tt>interf</tt>.
@@ -196,7 +215,7 @@ public class ExtensionConfiguration
         if( constructor == null )
         {
             throw new XMLToolException( "null constructor returned by subclass of "
-                    + Probatron.extensionClass() + " '" + className
+                    + Constants.ADD_IN_CLASS + " '" + className
                     + "': ensure constructor has public access" );
         }
 
@@ -234,6 +253,8 @@ public class ExtensionConfiguration
 
 
     /**
+     * Accesses the classname for this extension.
+     * This is in the format which can be loaded using reflection.
      * @return The classname for this extension.
      */
     public String getClassName()
@@ -260,6 +281,12 @@ public class ExtensionConfiguration
     }
 
 
+    /**
+     * Loads the requested class.
+     * @param classname the name of the class to load
+     * @return the loaded class, or null if the class cannot be loaded  
+     * @throws ClassNotFoundException if the requested class cannot be found
+     */
     public static Class loadClass( String classname ) throws ClassNotFoundException
     {
         Class c = null;
@@ -277,6 +304,7 @@ public class ExtensionConfiguration
 
 
     /**
+     * Whether the related extension has <code>applicationExtensionClass</code> as a superclass.
      * @return whether this extension class extends the application's extension class.
      */
     public boolean extendz( Class applicationExtensionClass )
@@ -295,31 +323,24 @@ public class ExtensionConfiguration
         return false;
     }
 
-
-//    public String asNormalizedXml()
-//    {
-//        return "\n\n<probe:addIn>\n<probe:name>" + this.className
-//                + "</probe:name>\n<probe:config>\n" + featuresAsNormalizedXml()
-//                + "\n</probe:config>\n</probe:addIn>";
-//    }
-//
-//
-//    private String featuresAsNormalizedXml()
-//    {
-//        Iterator it = features.iterator();
-//        StringBuffer buf = new StringBuffer();
-//        while( it.hasNext() )
-//        {
-//            Feature f = ( Feature )it.next();
-//            buf.append( f.asNormalizedXml() );
-//        }
-//        return buf.toString();
-//    }
-
-
-    public boolean isXMLReader()
-    {
-        return this.extendz( this.extClass );
-    }
+    //    public String asNormalizedXml()
+    //    {
+    //        return "\n\n<probe:addIn>\n<probe:name>" + this.className
+    //                + "</probe:name>\n<probe:config>\n" + featuresAsNormalizedXml()
+    //                + "\n</probe:config>\n</probe:addIn>";
+    //    }
+    //
+    //
+    //    private String featuresAsNormalizedXml()
+    //    {
+    //        Iterator it = features.iterator();
+    //        StringBuffer buf = new StringBuffer();
+    //        while( it.hasNext() )
+    //        {
+    //            Feature f = ( Feature )it.next();
+    //            buf.append( f.asNormalizedXml() );
+    //        }
+    //        return buf.toString();
+    //    }
 
 }

@@ -43,6 +43,9 @@ import com.griffinbrown.shail.util.ShailSingletonList;
 import com.griffinbrown.xmltool.Constants;
 import com.griffinbrown.xmltool.XMLToolException;
 
+/**
+ * Evaluator for XPaths against Shail documents.
+ */
 public class ShailXPathEvaluator implements QueryEvaluator
 {
     private NamespaceContext namespaceContext;
@@ -193,12 +196,6 @@ public class ShailXPathEvaluator implements QueryEvaluator
     }
 
 
-    public Object compileUnoptimized( String expr ) throws XMLToolException
-    {
-        return recompile( expr );
-    }
-
-
     //THIS CAN ONLY BE REVISITED IF/WHEN THE JAXEN VISITOR CLASS IS REINSTATED!! 
     private XPath optimize( XPath xpath ) throws XMLToolException
     {
@@ -301,16 +298,20 @@ public class ShailXPathEvaluator implements QueryEvaluator
     }
 
 
-    public void setGlobalVariableValue( String uri, String localName, Object value ) throws XMLToolException
+    public void setGlobalVariableValue( String uri, String localName, Object value )
+            throws XMLToolException
     {
         this.variableContext.setGlobalVariableValue( uri, localName, value );
     }
-    
-    public void setLocalVariableValue( String uri, String localName, Object value ) throws XMLToolException
+
+
+    public void setLocalVariableValue( String uri, String localName, Object value )
+            throws XMLToolException
     {
         this.variableContext.setLocalVariableValue( uri, localName, value );
     }
-    
+
+
     void setInternalVariableValue( String uri, String localName, Object value )
     {
         this.variableContext.setInternalVariableValue( uri, localName, value );
@@ -318,7 +319,7 @@ public class ShailXPathEvaluator implements QueryEvaluator
 
 
     public String evaluateAsString( int context, Object compiledExpr ) throws XMLToolException
-    {       
+    {
         String result = null;
         try
         {
@@ -344,11 +345,13 @@ public class ShailXPathEvaluator implements QueryEvaluator
     }
 
 
+    /**
+     * Removes all local variables from the evaluation context.
+     */
     public void clearLocalVariables()
     {
         this.variableContext.clearLocals();
     }
-
 
 
     /**
@@ -423,6 +426,4 @@ public class ShailXPathEvaluator implements QueryEvaluator
         this.variableContext = variableContext;
     }
 
-    
-    
 }

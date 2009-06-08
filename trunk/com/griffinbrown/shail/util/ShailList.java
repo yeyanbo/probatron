@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-/*
+/**
  * A container for Shail nodes.
  * 
  * @author andrews
@@ -124,6 +124,7 @@ public class ShailList implements List
 
 
     /**
+     * Appends all the items in another ShailList to the list of items in this one. 
      * @throws UnsupportedOperationException if the argument passed in is not an instance of {@link ShailList}
      */
     public boolean addAll( Collection c )
@@ -349,6 +350,7 @@ public class ShailList implements List
     }
 
     /**
+     * Gets the number of items in the list.
      * @return the number of items in the list
      */
     public int size()

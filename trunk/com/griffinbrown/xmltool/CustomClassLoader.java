@@ -32,7 +32,7 @@ import java.util.jar.JarFile;
 import org.apache.log4j.Logger;
 
 /**
- * Loads classes contained within an executable JAR (internal use only).
+ * A class loader for use with classes stored in a JAR (internal use only).
  *  
  * @author andrews
  *
@@ -41,6 +41,11 @@ import org.apache.log4j.Logger;
 
 public class CustomClassLoader extends ClassLoader
 {
+    /**
+     * Default constructor.
+     */
+    public CustomClassLoader()
+    {}
     
     private static Logger logger = Logger.getLogger( Loader.class );
     

@@ -114,7 +114,13 @@ public class NotationDecl extends XmlConstruct
 	private String _systemId;
 
 
-
+	/**
+	 * Constructor for normal use.
+	 * @param inst the instance the declaration belongs to
+	 * @param name the name of the notation
+	 * @param publicId the public identifier for the notation
+	 * @param systemId the system identifier for the notation
+	 */
 	public NotationDecl( Instance inst, String name, String publicId, String systemId )
 	{
 		super( inst );

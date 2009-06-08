@@ -106,7 +106,7 @@ import com.griffinbrown.xmltool.utils.UnicodeFormatter;
 
 
 /**
- * Class to represent entity declarations.
+ * Class to represent an entity declaration.
  */
 
 public class EntityDecl extends XmlConstruct implements Comparable
@@ -115,6 +115,12 @@ public class EntityDecl extends XmlConstruct implements Comparable
 	String _value;
 	char _quot = '\'';
 
+	/**
+	 * Constructor for normal use.
+	 * @param inst the instance the declaration belongs to
+	 * @param name the entity name
+	 * @param value the entity value
+	 */
 	public EntityDecl( Instance inst, String name, String value )
 	{
 		super( inst );
@@ -159,7 +165,7 @@ public class EntityDecl extends XmlConstruct implements Comparable
 	}
 	
 	/**
-	 * 
+	 * Accesses the entity name.
 	 * @return the name of the entity declared
 	 */
 	public String name()
@@ -168,7 +174,7 @@ public class EntityDecl extends XmlConstruct implements Comparable
 	}
 	
 	/**
-	 * 
+	 * Accesses the entity value.
 	 * @return the string value of the entity declared
 	 */
 	public String value()
@@ -176,6 +182,10 @@ public class EntityDecl extends XmlConstruct implements Comparable
 		return _value;
 	}
     
+	/**
+	 * Comparison method.
+	 * @return the result of compairing the string of the entity names
+	 */
     public int compareTo( Object obj )
     {
         EntityDecl ed = (EntityDecl)obj;

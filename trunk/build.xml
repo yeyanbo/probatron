@@ -40,7 +40,6 @@
     <!-- Create the build directory structure used by compile -->
     <mkdir dir="${build}"/>  
     <mkdir dir="${dist}"/>  
-    <mkdir dir="${doc}"/>  
   </target>
   
   <target name="compile" depends="init"
@@ -92,10 +91,10 @@
   <target name='doc' description='document the source code'>
   	<javadoc destdir='${doc}'
   					 Windowtitle='Probatron'
-  					 stylesheetfile='css/javadoc.css'> 
+  					 stylesheetfile='doc/javadoc.css'>
   		
   		<!-- the packages to document -->
-			<packageset dir='src'>
+			<packageset dir='${src}'>
 				<exclude name='org/probatron/test/**'/>
 			</packageset>
 			
@@ -110,15 +109,13 @@
   </target>
   
   <target name="zip-all-sources" description="zip the project for ease of transfer" depends='tstamp'>
-    <zip destfile='${dist}/probatron_proj_${build.time}.zip' duplicate='fail'>
-	   	<fileset dir='..'>
-    		<!--Eclipse-specific metadata-->
-    		<include name='**/.classpath'/>
-    		<include name='**/.project'/>
-    		<!--source and dependencies-->
+    <zip destfile='probatron_proj_${build.time}.zip' duplicate='fail'>
+	   	<!--source code, build files and dependencies-->
+	   	<fileset dir='${src}'>
     		<include name='**/*.java'/>
-    		<include name='etc/*.*'/>
-    		<include name='**/build.xml'/>	<!--this file-->
+    		<include name='etc/**/*.*'/>
+    		<include name='build.xml'/>	<!--this file-->
+    		<include name='ant.bat'/>
     	</fileset>
     </zip>
   </target>  

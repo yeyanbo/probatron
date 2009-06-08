@@ -22,10 +22,8 @@ package org.probatron;
 
 
 /**
+ * An element name as part of an XPath locator.
  * 
- * 
- * 
- * @author andrews
  * @version $Revision: 1.1 $
  * 
  * @version $Id: ElementNameTest.java,v 1.1 2009/02/11 08:52:55 GBDP\andrews Exp $
@@ -63,7 +61,8 @@ public class ElementNameTest extends NodeTest
 
 
     /**
-     * @return qualified name for this test.
+     * Accesses the qualified name for this element
+     * @return qualified name for this test
      */
     public String getQName()
     {
@@ -72,7 +71,8 @@ public class ElementNameTest extends NodeTest
 
 
     /**
-     * @return the <code>NCName</code> for this test.
+     * Accesses the NCName for this element. 
+     * @return the <code>NCName</code> for this test
      */
     public String getNCName()
     {
@@ -82,7 +82,10 @@ public class ElementNameTest extends NodeTest
         return this.namespacePrefix;
     }
 
-
+    /**
+     * Accesses the namespace URI for this element.
+     * @return
+     */
     public String getNamespaceURI()
     {
         return this.namespaceURI;
