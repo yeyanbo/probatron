@@ -37,12 +37,24 @@ public interface MessageHandler
      */
     public void handle( Message m );
 
+    /**
+     * Gets the messages handled. 
+     * @param format the output format to use for the string representation of the messages 
+     * @return string of the handled messages
+     */
+    public String getMessages( short format );
 
-    public String getMessages( short errorFormat );
-
-
+    /**
+     * Receives notification that message handling has ceased.
+     */
     public void stop();
 
-
+    /**
+     * Sets the output format for handled messages.
+     * @param format output format for handled messages
+     * @see Constants#ERRORS_AS_TEXT
+     * @see Constants#ERRORS_AS_XML
+     * @see Constants#ERRORS_AS_HTML
+     */
     public void setErrorFormat( short format );
 }

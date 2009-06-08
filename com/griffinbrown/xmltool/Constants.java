@@ -32,11 +32,14 @@ import java.util.List;
 
 import org.probatron.jaxen.xpath2.MatchesFunction;
 
-/*
+/**
  * Utility class for constant values.
  */
 public final class Constants
 {
+    private Constants()
+    {}
+    
     //character encodings...
 
     //...as Java expects them

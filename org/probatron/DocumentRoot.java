@@ -24,7 +24,7 @@
 package org.probatron;
 
 /**
- * @author andrews
+ * A document root as part of an XPath locator.
  *
  * @version $Id: DocumentRoot.java,v 1.1 2009/02/11 08:52:55 GBDP\andrews Exp $
  */
@@ -35,11 +35,17 @@ public class DocumentRoot extends NodeTest
         super( node );
     }
     
+    /**
+     * @return the empty string
+     */
     public String getValue()
     {
         return "";
     }
 
+    /**
+     * Does nothing. A document has only one root.
+     */
     public void setPredicate( int predicate )
     {}
 }

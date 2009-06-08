@@ -21,7 +21,7 @@
 package com.griffinbrown.xmltool;
 
 /**
- * Class to represent a general XMLTool exception.
+ * Class to represent a general processing exception.
  */
 public class XMLToolException extends Exception
 {
@@ -40,6 +40,10 @@ public class XMLToolException extends Exception
 		super( message );
 	}
 
+	/**
+	 * Creates a new XMLToolException which wraps another exception.
+	 * @param e
+	 */
 	public XMLToolException( Exception e )
 	{
 		super( e );

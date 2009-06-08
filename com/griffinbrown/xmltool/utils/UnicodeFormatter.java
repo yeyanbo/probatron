@@ -101,11 +101,16 @@ package com.griffinbrown.xmltool.utils;
 
 import org.apache.xerces.util.XMLChar;
 
-
+/**
+ * Utility methods for formatting Unicode.
+ * @author andrews
+ *
+ * $Id$
+ */
 public class UnicodeFormatter
 {
     /**
-     * 
+     * Converts a byte to a hexadecimal representation.
      * @param b byte to represent
      * @return hexadecimal string representation of the byte passed in
      */
@@ -121,7 +126,7 @@ public class UnicodeFormatter
    }
 
    /**
-    * 
+    * Converts a <code>char</code> to a hexadecimal representation.
     * @param c char to represent
     * @return hexadecimal string representation of the char passed in
     */
@@ -133,7 +138,8 @@ public class UnicodeFormatter
    }
 
    /**
-    * Encodes a string with US-ASCII escaping for use as XML
+    * Encodes a string with US-ASCII escaping for use as XML.
+    * @param s the string to encode
     */
    public static StringBuffer encodeAsAsciiXml( String s )
    {
@@ -169,7 +175,8 @@ public class UnicodeFormatter
    }
    
    /**
-    * Encodes a string with US-ASCII escaping
+    * Encodes a string with US-ASCII escaping.
+    * @param s the string to encode
     */
    public static StringBuffer encodeAsAsciiString( String s )
    {

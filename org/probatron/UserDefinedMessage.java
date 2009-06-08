@@ -35,7 +35,7 @@ import com.griffinbrown.xmltool.utils.Utils;
  * Class to represent a message defined by the user.
  * This is a sub-class to accommodate well-formed XML included in user-defined messages.
  */
-public class UserDefinedMessage extends SessionMessage
+class UserDefinedMessage extends SessionMessage
 {
     public UserDefinedMessage( Application app, String type, String message, LocatorImpl loc,
             XPathLocator xpl )

@@ -30,9 +30,8 @@ import com.griffinbrown.shail.ModelRegistry;
 import com.griffinbrown.xmltool.XPathLocator;
 
 /**
- * @version $Revision: 1.1 $
- * 
- * @version $Id: XPathLocatorImpl.java,v 1.1 2009/02/11 08:52:55 GBDP\andrews Exp $
+ * An implementation of the <code>XPathLocator</code> interface to represent node locations in
+ * XPath syntax under Probatron.
  * 
  */
 public class XPathLocatorImpl implements XPathLocator
@@ -60,7 +59,7 @@ public class XPathLocatorImpl implements XPathLocator
     /**
      * Use this constructor when a QueryEvaluator is not available to 
      * provide information about registered namespaces.
-     * @param node
+     * @param node the node whose locator is required
      */
     public XPathLocatorImpl( int node )
     {
@@ -70,7 +69,7 @@ public class XPathLocatorImpl implements XPathLocator
 
 
     /**
-     * @see com.griffinbrown.xmltool.XPathLocator#isAbsolute()
+     * @return <code>true</code> - these locators are absolute for the purposes of Probatron reports
      */
     public boolean isAbsolute()
     {
@@ -81,7 +80,7 @@ public class XPathLocatorImpl implements XPathLocator
     /**
      * Converts a List of <code>NodeTest</code>s into a string representation of
      * an XPathLocator.
-     * @param list NodeTests making up this XPath locator
+     * @param list the NodeTests making up this XPath locator
      * @return string of this XPath locator
      */
     public static String toString( List list )
@@ -97,7 +96,9 @@ public class XPathLocatorImpl implements XPathLocator
         return s.toString();
     }
 
-
+    /**
+     * This implementation copies the behaviour of {@link #toString(List)}.
+     */
     public String toString()
     {
         if( list == null )

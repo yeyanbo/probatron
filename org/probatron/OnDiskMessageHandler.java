@@ -47,9 +47,7 @@ import com.griffinbrown.xmltool.utils.Utils;
 
 /**
  * Class to represent a message handler which writes messages to disk before 
- * manipulating them any further. 
- * 
- * @author andrews
+ * manipulating them further. 
  */
 public class OnDiskMessageHandler implements MessageHandler
 {
@@ -99,9 +97,6 @@ public class OnDiskMessageHandler implements MessageHandler
     }
 
 
-    /**
-     * @see com.xmlprobe.MessageHandler#handle(com.griffinbrown.xmltool.Message)
-     */
     public void handle( Message m )
     {
         if( errorFormat == Constants.ERRORS_AS_TEXT )
@@ -166,7 +161,7 @@ public class OnDiskMessageHandler implements MessageHandler
 
 
     /**
-     * Parses the assembled messages, emitting each in turn to System.out.
+     * Parses the assembled messages, emitting them to <code>System.out</code>.
      */
     public String getMessages( short errorFormat )
     {

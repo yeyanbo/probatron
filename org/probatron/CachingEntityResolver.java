@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
  *
  * @author andrews
  */
-public class CachingEntityResolver implements EntityResolver
+class CachingEntityResolver implements EntityResolver
 {
     private HashMap map = new HashMap(); //expected-sys-id:actual-sys-id
     private HashMap inputSources = new HashMap(); //expected-sys-id:InputSource

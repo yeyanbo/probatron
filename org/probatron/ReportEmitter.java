@@ -28,20 +28,30 @@ import org.apache.log4j.Logger;
 import com.griffinbrown.xmltool.Constants;
 import com.griffinbrown.xmltool.Session;
 
+/**
+ * A manager for reports and how they are presented to the user.
+ * @author andrews
+ *
+ * $Id$
+ */
 public abstract class ReportEmitter
 {
     private Session session;
     private static Logger logger = Logger.getLogger( ReportEmitter.class );
 
-
+    /**
+     * Constructor for normal use.
+     * @param session the session of processing producing the report
+     */
     public ReportEmitter( Session session )
     {
         this.session = session;
     }
 
     /**
-     * Requests that the validation report is emitted.
-     * In this implementation, the report is emitted to the prevailing <code>PrintStream</code> for the session.
+     * Requests that the report is emitted.
+     * <p>In this implementation, the report is emitted to the prevailing <code>PrintStream</code> for the session.</p>
+     * <p>The print stream is flushed after the report has been emitted.</p> 
      * 
      * @throws Exception
      * @see {@link Session#setPrintStream(java.io.PrintStream)}

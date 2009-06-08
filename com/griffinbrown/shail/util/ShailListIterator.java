@@ -3,6 +3,12 @@
  */
 package com.griffinbrown.shail.util;
 
+/**
+ * An iterator for {@link ShailList}s.
+ * @author andrews
+ *
+ * $Id$
+ */
 public class ShailListIterator extends ShailIterator
 {
     private IntArray list;
@@ -53,27 +59,6 @@ public class ShailListIterator extends ShailIterator
     };
 
 
-    public int previous()
-    {
-        if( hasPrevious() )
-        {
-            int i = list.itemAt( cursor - 1 );
-            cursor--;
-            return i;
-        }
-        throw new IndexOutOfBoundsException();
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public boolean hasPrevious()
-    {
-        return ( cursor - 1 ) >= 0;
-    }
-
-
     public int nextNode()
     {
         if( cursor < list.numItems() )
@@ -91,6 +76,7 @@ public class ShailListIterator extends ShailIterator
         return cursor < list.numItems();
     }
 
+
     /**
      * Unsupported in this implementation.
      */
@@ -106,25 +92,7 @@ public class ShailListIterator extends ShailIterator
     }
 
 
-    public int nextIndex()
-    {
-        throw new UnsupportedOperationException();
-    }
-
-
-    public int previousIndex()
-    {
-        throw new UnsupportedOperationException();
-    }
-
-
     public void remove()
-    {
-        throw new UnsupportedOperationException();
-    }
-
-
-    public void set( Object arg0 )
     {
         throw new UnsupportedOperationException();
     }

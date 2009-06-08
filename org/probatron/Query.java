@@ -26,6 +26,9 @@ package org.probatron;
 
 import com.griffinbrown.xmltool.XMLToolException;
 
+/**
+ * A generic query to be evaluated against an XML document.
+ */
 public interface Query
 {
     /**
@@ -36,13 +39,14 @@ public interface Query
     
     /**
      * Accesses the expression associated with this query.
-     * @return the string of the expression
+     * @return a string representation of the expression
      */
     String getExpression();
     
     /**
      * Evaluate the query against some context.
-     * @return a list of results
+     * @return an object representing the result of the query evaluation, or 
+     * <code>null</code> if the query cannot be evaluated  
      * @throws XMLToolException
      */
     Object evaluate() throws XMLToolException;

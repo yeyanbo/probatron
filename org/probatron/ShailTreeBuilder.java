@@ -30,6 +30,9 @@ import org.xml.sax.EntityResolver;
 import com.griffinbrown.xmltool.Instance;
 import com.griffinbrown.xmltool.Session;
 
+/**
+ * Document builder for the Shail document model. 
+ */
 public class ShailTreeBuilder extends BuilderImpl
 {
     private Session session;
@@ -38,7 +41,11 @@ public class ShailTreeBuilder extends BuilderImpl
 
     private static final String FEATURE_REMAP_ENTITY = "remap-entity";
 
-
+    /**
+     * Constructor for normal use.
+     * @param instance the instance the builder will construct a model of
+     * @param session the session of processing the builder belongs to
+     */
     public ShailTreeBuilder( Instance instance, Session session )
     {
         super( instance, session );
@@ -120,6 +127,10 @@ public class ShailTreeBuilder extends BuilderImpl
     /////////////////////////////////////////////
     /* ACCESSOR METHODS FOR USE BY SUB-CLASSES */
     /////////////////////////////////////////////
+    
+    /**
+     * Retrieves the SAX entity resolver used by this builder.
+     */
     public EntityResolver getEntityResolver()
     {
         return this.resolver;

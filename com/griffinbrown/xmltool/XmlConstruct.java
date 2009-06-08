@@ -111,9 +111,17 @@ package com.griffinbrown.xmltool;
 public abstract class XmlConstruct
 {
 	private Instance inst;
+	/**
+	 * Flag for a minimal representation of an XML construct. 
+	 */
 	public static final short EMIT_MINIMAL = 0;
+	
+	/**
+	 * Flag for a pretty-printed representation of an XML construct.
+	 */
 	public static final short EMIT_PRETTY = 1;
-	public static String XML_VERSION = "1.0";
+	
+	static String XML_VERSION = "1.0";
 
 	/**
 	 * @param inst the XML Instance to which this semantic belongs
@@ -134,6 +142,7 @@ public abstract class XmlConstruct
 	
 
 	/**
+	 * Accesses the containing instance for this construct
 	 * @return the containing instance for this construct
 	 */
 	public Instance containingInstance()

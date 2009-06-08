@@ -1,21 +1,18 @@
 /*
- * Copyright 2009 Griffin Brown Digital Publishing Ltd
- * All rights reserved.
- *
- * This file is part of Probatron.
- *
- * Probatron is free software: you can redistribute it and/or modify
- * it under the terms of the Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2009 Griffin Brown Digital Publishing Ltd All rights reserved.
  * 
- * Probatron is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * Affero General Public License for more details.
- *
- * You should have received a copy of the Affero General Public License
- * along with Probatron.  If not, see <http://www.gnu.org/licenses/>.
+ * This file is part of Probatron.
+ * 
+ * Probatron is free software: you can redistribute it and/or modify it under the terms of the
+ * Affero General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * Probatron is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * the Affero General Public License for more details.
+ * 
+ * You should have received a copy of the Affero General Public License along with Probatron. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.probatron;
@@ -51,6 +48,9 @@ import com.griffinbrown.shail.iter.SelfAxisIterator;
 import com.griffinbrown.shail.util.ShailIterator;
 import com.griffinbrown.shail.util.ShailSingletonList;
 
+/**
+ * Document navigator for the Shail document model.
+ */
 public class ShailNavigator implements Navigator
 {
     private static Logger logger = Logger.getLogger( ShailNavigator.class );
@@ -62,13 +62,17 @@ public class ShailNavigator implements Navigator
 
     //    private ModelRegistry modelRegistry;
 
-    protected ShailNavigator()
+    private ShailNavigator()
     {
     //        this.modelRegistry = new ModelRegistry(); //new ModelRegistry();
     //        modelRegistry = ModelRegistry.getInstance();
     }
 
 
+    /**
+     * Gets the singleton instance of this navigator.
+     * @return the <code>ShailNavigator</code> singleton
+     */
     public static ShailNavigator getInstance()
     {
         return INSTANCE;
@@ -225,6 +229,12 @@ public class ShailNavigator implements Navigator
     }
 
 
+    /**
+     * Accesses the document at <tt>url</tt> as an object. 
+     * @param url the location of the document
+     * @return a <code>ShailSingletonList</code> containing the root node 
+     * @throws FunctionCallException if the document cannot be retrieved
+     */
     public Object getDocumentAsObject( String url ) throws FunctionCallException
     {
         int doc = getDocument( url );
@@ -323,10 +333,6 @@ public class ShailNavigator implements Navigator
     }
 
 
-    /**
-     * N.B. Adapted from the Jaxen impl.
-     * In this Shail-friendly impl, the only reified node should be the context node passed in.
-     */
     public Iterator getNamespaceAxisIterator( int context ) throws UnsupportedAxisException
     {
         // Only elements have namespace nodes
@@ -352,10 +358,14 @@ public class ShailNavigator implements Navigator
         }
     }
 
-
-    public String getNamespaceURI( int o )
+    /**
+     * Retrieves the namespace URI for the node passed in.
+     * @param node the node whose namespace URI is required
+     * @return namespace URI for the node, or <code>null</code> if none exists 
+     */
+    public String getNamespaceURI( int node )
     {
-        return getModel( o ).getNamespaceURI( o );
+        return getModel( node ).getNamespaceURI( node );
     }
 
 
@@ -414,7 +424,7 @@ public class ShailNavigator implements Navigator
 
     public Iterator getPrecedingAxisIterator( int context ) throws UnsupportedAxisException
     {
-//                return new PrecedingAxisIterator( context, this );
+        //                return new PrecedingAxisIterator( context, this );
         return new PrecedingAxisIterator( context, getModel( context ) );
     }
 
@@ -474,12 +484,21 @@ public class ShailNavigator implements Navigator
         return ModelRegistry.getModelForNode( o );
     }
 
-
+    /**
+     * Sets the SAX entity resolver to use in retrieving documents.
+     * @param entityResolver the entity resolver to be used
+     */
     public void setEntityResolver( EntityResolver entityResolver )
     {
         this.entityResolver = entityResolver;
     }
 
+
+    /**
+     * Whether the node passed in contains <tt>CDATA</tt>.
+     * @param node node to query
+     * @return whether the node contains <tt>CDATA</tt>
+     */
     public boolean containsCDATA( int node )
     {
         return getModel( node ).containsCDATASection( node );

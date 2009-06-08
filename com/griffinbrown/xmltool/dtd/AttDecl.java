@@ -133,6 +133,16 @@ public class AttDecl extends XmlConstruct implements Comparable
 	static final String TYPE_DEFAULTED = null;
 	static final String TYPE_FIXED = "#FIXED";
 
+	/**
+	 * Constructor for normal use.
+	 * @param inst the instance to which this declaration belongs
+	 * @param etd the element type declaration for the element to which this attribute declaration belongs 
+	 * @param name the name of the attribute
+	 * @param type the type of the attribute
+	 * @param valueDefault the default value of the attribute 
+	 * @param value the value of the attribute
+	 * @param loc a SAX locator for the attribute declaration
+	 */
 	public AttDecl(
 		Instance inst,
 		ElemTypeDecl etd,
@@ -219,6 +229,7 @@ public class AttDecl extends XmlConstruct implements Comparable
 	}
 
 	/**
+	 * Accesses the name of the attribute declared.
 	 * @return the name of the attribute declared
 	 */
 	public String name()
@@ -227,6 +238,7 @@ public class AttDecl extends XmlConstruct implements Comparable
 	}
 
 	/**
+	 * Accesses the type of the attribute declared.
 	 * @return the type of the attribute declared
 	 */
 	public String type()
@@ -235,6 +247,7 @@ public class AttDecl extends XmlConstruct implements Comparable
 	}
 
 	/**
+	 * Accesses the value of the attribute declared. 
 	 * @return the allowed value(s) of the attribute declared 
 	 */
 	public String value()
@@ -243,6 +256,7 @@ public class AttDecl extends XmlConstruct implements Comparable
 	}
 
 	/**
+	 * Accesses the default value of the attribute declared.
 	 * @return the default value of the attribute declared
 	 */
 	public String valueDefault()
@@ -251,7 +265,7 @@ public class AttDecl extends XmlConstruct implements Comparable
 	}
 
 	/**
-	 * 
+	 * Accesses the SAX locator for this declaration.
 	 * @return the location of this <code>AttDecl</code>
 	 */
 	public LocatorImpl location()

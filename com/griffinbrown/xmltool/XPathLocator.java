@@ -33,6 +33,8 @@ package com.griffinbrown.xmltool;
 public interface XPathLocator
 {
 	/**
+	 * Whether this locator is absolute. 
+	 * 
 	 * @return whether the XPath locator is absolute, that is, specified with 
 	 * the document root as its context. If this is <code>false</code>, then the XPath
 	 * locator is relative, i.e. dependent on the context in which it occurs.

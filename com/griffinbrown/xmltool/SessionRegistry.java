@@ -26,10 +26,13 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-/*
- * Created on 26-Apr-2006
+/**
+ * A registry for application sessions.
+ * 
+ * @author andrews
+ *
+ * $Id$
  */
-
 public class SessionRegistry
 {
     private static final SessionRegistry INSTANCE = new SessionRegistry();
@@ -38,18 +41,21 @@ public class SessionRegistry
 
 
     private SessionRegistry()
-    {
-    //init here
+    {}
 
-    }
-
-
+    /**
+     * Accesses the registry instance.
+     * @return the registry instance
+     */
     public static SessionRegistry getInstance()
     {
         return INSTANCE;
     }
 
-
+    /**
+     * Registers a session.
+     * @param session the session to register
+     */
     public void register( Session session )
     {
         Thread t = Thread.currentThread();
@@ -58,7 +64,10 @@ public class SessionRegistry
             logger.debug( "mapped thread " + t + " to " + session );
     }
 
-
+    /**
+     * Accesses the current session.
+     * @return the current session
+     */
     public Session getCurrentSession()
     {
         return ( Session )threads2sessions.get( Thread.currentThread() );

@@ -1,21 +1,18 @@
 /*
- * Copyright 2009 Griffin Brown Digital Publishing Ltd
- * All rights reserved.
- *
- * This file is part of Probatron.
- *
- * Probatron is free software: you can redistribute it and/or modify
- * it under the terms of the Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Copyright 2009 Griffin Brown Digital Publishing Ltd All rights reserved.
  * 
- * Probatron is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * Affero General Public License for more details.
- *
- * You should have received a copy of the Affero General Public License
- * along with Probatron.  If not, see <http://www.gnu.org/licenses/>.
+ * This file is part of Probatron.
+ * 
+ * Probatron is free software: you can redistribute it and/or modify it under the terms of the
+ * Affero General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * Probatron is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * the Affero General Public License for more details.
+ * 
+ * You should have received a copy of the Affero General Public License along with Probatron. If
+ * not, see <http://www.gnu.org/licenses/>.
  */
 
 /*
@@ -47,6 +44,13 @@ import com.griffinbrown.xmltool.XPathLocator;
 import com.griffinbrown.xmltool.utils.Utils;
 import com.griffinbrown.xmltool.utils.XPathFactory;
 
+/**
+ * A handler for the evaluation of XPath queries under Probatron.
+ * 
+ * @author andrews
+ *
+ * $Id$
+ */
 public class QAHandler extends ShailTreeBuilder implements QueryHandler
 {
     private XPathFactory xpathFactory = new ShailXPathFactory();
@@ -65,12 +69,18 @@ public class QAHandler extends ShailTreeBuilder implements QueryHandler
     private static final String TIME_XPATH_EVAL = "time-xpath-evaluation";
     private static final String XPATH_EXT_FUNC = "xpath-extension-function";
     private static final String XPATH_LOCATORS = "use-xpath-locators";
-    protected static final String ELEMENT_MESSAGE = "message";
-    protected static final String ELEMENT_TYPE = "type";
-    protected static final String ELEMENT_FOR_EACH = "for-each";
+    private static final String ELEMENT_MESSAGE = "message";
+    private static final String ELEMENT_TYPE = "type";
+    private static final String ELEMENT_FOR_EACH = "for-each";
     static final String MAX_REPORTS = "report-maximum";
 
 
+    /**
+     * Constructor for normal use.
+     * @param instance the instance to process
+     * @param session the owner session
+     * @throws XMLToolException
+     */
     public QAHandler( Instance instance, ProbatronSession session ) throws XMLToolException
     {
         super( instance, session );
@@ -276,27 +286,9 @@ public class QAHandler extends ShailTreeBuilder implements QueryHandler
     }
 
 
-    public boolean handlesMultipleDocs()
-    {
-        return false;
-    }
-
-
-    public boolean isTimingEval()
-    {
-        return this.timeXPathEvals;
-    }
-
-
     public void setEvaluator( QueryEvaluator eval )
     {
         this.evaluator = eval;
-    }
-
-
-    public boolean useXPathLocators()
-    {
-        return this.useXPathLocators;
     }
 
 

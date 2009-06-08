@@ -36,9 +36,22 @@ import com.griffinbrown.xmltool.Session;
 import com.griffinbrown.xmltool.SessionMessage;
 import com.griffinbrown.xmltool.XMLToolException;
 
+/**
+ * A handler for the evaluation of Schematron queries under Probatron. 
+ * 
+ * @author andrews
+ *
+ * $Id$
+ */
 public class SchematronQAHandler extends QAHandler
 {
 
+    /**
+     * Constructor for normal use.
+     * @param instance the instance to process
+     * @param session the Probatron processing session
+     * @throws XMLToolException
+     */
     public SchematronQAHandler( Instance instance, ProbatronSession session )
             throws XMLToolException
     {

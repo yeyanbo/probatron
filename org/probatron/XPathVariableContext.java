@@ -30,6 +30,12 @@ import org.probatron.jaxen.VariableContext;
 
 import com.griffinbrown.xmltool.XMLToolException;
 
+/**
+ * Manages XPath variables in force for a session of XPath evaluation.   
+ * @author andrews
+ *
+ * $Id$
+ */
 public class XPathVariableContext implements VariableContext
 {
     private SimpleVariableContext globals;
@@ -37,7 +43,9 @@ public class XPathVariableContext implements VariableContext
 
     private static Logger logger = Logger.getLogger( XPathVariableContext.class );
 
-
+    /**
+     * Constructor for normal use.
+     */
     public XPathVariableContext()
     {
         globals = new SimpleVariableContext();

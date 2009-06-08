@@ -96,7 +96,7 @@ import com.griffinbrown.xmltool.Instance;
 import com.griffinbrown.xmltool.SessionRegistry;
 import com.griffinbrown.xmltool.XmlConstruct;
 
-/*
+/**
  * Class to represent an XML DTD.
  * 
  * The class represents a DTD's overall semantics ... in other words, <B>what</B> the DTD means
@@ -130,21 +130,19 @@ public class Dtd extends XmlConstruct
         super( inst );
     }
 
-
-    /** 
-     * hashcode - NB this is an expensive method.
-     * @see java.lang.Object#hashCode()
+    /**
+     * Returns the hashcode of the normalized string of this DTD.
      */
     public int hashCode()
     {
-
         return this.asNormalizedXml( 0 ).hashCode();
-
     }
 
 
     /**
      * Adds a new element type declaration to this DTD.
+     * @param name the name of the element
+     * @param cm a representation of its content model
      */
     public ElemTypeDecl addElemTypeDecl( String name, String cm )
     {
@@ -157,6 +155,9 @@ public class Dtd extends XmlConstruct
 
     /**
      * Adds a new notation declaration to this DTD.
+     * @param name the name of the notation
+     * @param pubId the public identifier for the notation
+     * @param systemId the system identifier for the notation
      */
     public NotationDecl addNotationDecl( String name, String pubId, String systemId )
     {
@@ -168,6 +169,9 @@ public class Dtd extends XmlConstruct
 
     /**
      * Adds a new unparsed entity declaration to this DTD.
+     * @param name the name of the entity
+     * @param value the value of the entity 
+     * 
      */
     public UnparsedEntityDecl addUnparsedEntityDecl( String name, String pubId,
             String systemId, String notationName )
@@ -180,6 +184,8 @@ public class Dtd extends XmlConstruct
 
     /**
      * Adds a new general entity declaration to this DTD.
+     * @param name the name of the entity
+     * @param value the value of the entity 
      */
     public EntityDecl addEntityDecl( String name, String value )
     {
@@ -191,6 +197,9 @@ public class Dtd extends XmlConstruct
 
     /**
      * Adds an external entity declaration.
+     * @param name the name of the entity
+     * @param pubId the public identifier for the entity
+     * @param systemId the system identifier for the entity
      */
     public ExternalEntityDecl addExternalEntityDecl( String name, String pubId, String systemId )
     {
@@ -255,8 +264,9 @@ public class Dtd extends XmlConstruct
 
 
     /**
-     * @param name the localname of the element whose type declaration is being requested.
-     * @return the ElemTypeDecl object representing the element declared; null if not found.
+     * Accesses a specfic element type declaration. 
+     * @param name the local name of the element whose type declaration is being requested
+     * @return the ElemTypeDecl object representing the element declared; <code>null</code> if not found
      * @see ElemTypeDecl
      */
     public ElemTypeDecl getElemTypeDeclByName( String name )
@@ -266,6 +276,7 @@ public class Dtd extends XmlConstruct
 
 
     /**
+     * Accesses the element type declarations for this DTD. 
      * @return an Iterator of the ElemTypeDecls
      */
     public Iterator elemDecls()
@@ -277,7 +288,7 @@ public class Dtd extends XmlConstruct
     /**
      * @return ArrayList of ElemTypeDecls
      */
-    public ArrayList etds()
+    private ArrayList etds()
     {
         return this.etds;
     }
@@ -286,13 +297,14 @@ public class Dtd extends XmlConstruct
     /**
      * @return an Iterator of forward declarations
      */
-    public Iterator forDecls()
+    private Iterator forDecls()
     {
         return this.forDecls.iterator();
     }
 
 
     /**
+     * Accesses the notation declarations for this DTD.
      * @return an Iterator of the NOTATIONS declared by this DTD.
      */
     public Iterator notationDecls()
@@ -302,6 +314,7 @@ public class Dtd extends XmlConstruct
 
 
     /**
+     * Accesses unparsed entity declarations for this DTD.
      * @return an Iterator of the unparsed entities declared by this DTD.
      */
     public Iterator unparsedEntityDecls()
@@ -311,6 +324,7 @@ public class Dtd extends XmlConstruct
 
 
     /**
+     * Accesses the entity declarations for this DTD.
      * @return an Iterator of the general entities declared by this DTD.
      */
     public Iterator entityDecls()
@@ -322,13 +336,14 @@ public class Dtd extends XmlConstruct
     /**
      * @return an Iterator of the general entities declared by this DTD.
      */
-    public Iterator externalEntityDecls()
+    private Iterator externalEntityDecls()
     {
         return this.extEnts.iterator();
     }
 
 
     /**
+     * Accesses the number of element type declarations in this DTD. 
      * @return the number of elements declared by this DTD.
      */
     public int elemDeclCount()
@@ -492,7 +507,10 @@ public class Dtd extends XmlConstruct
         return buf.toString();
     }
 
-
+    /**
+     * Resolves element declarations to identify elements referenced but not declared.
+     * Internal use only. 
+     */
     public void resolveChildren()
     {
         //System.err.println( "Resolving children..." );
@@ -563,7 +581,7 @@ public class Dtd extends XmlConstruct
     }
 
 
-    public String[] elemTokens( String contentModel, boolean includeTokens )
+    private String[] elemTokens( String contentModel, boolean includeTokens )
     {
         // find all the types in the content model
         StringTokenizer st = new StringTokenizer( contentModel, "|,()?*+ ", includeTokens );
@@ -659,6 +677,7 @@ public class Dtd extends XmlConstruct
 
 
     /**
+     * Accesses the public identifier of this DTD. 
      * @return the PUBLIC ID of this DTD, or null if there is none.
      */
     public String getPubId()
@@ -668,6 +687,7 @@ public class Dtd extends XmlConstruct
 
 
     /**
+     * Accesses the system identifier of this DTD.
      * @return the SYSTEM id of this DTD, as it was specified in the Instance under this DTD's control.
      */
     public String getSysId()
@@ -679,18 +699,24 @@ public class Dtd extends XmlConstruct
     /**
      * @return number of entity declarations (of all types) for this DTD.
      */
-    public int entityDeclCount()
+    private int entityDeclCount()
     {
         return ents.size() + extEnts.size() + notats.size() + unpeds.size();
     }
 
-
+    /**
+     * Sets the public identifier for this DTD.
+     * @param pubId the public identifier
+     */
     public void setPubId( String pubId )
     {
         this.pubId = pubId;
     }
 
-
+    /**
+     * Sets the system identifer for this DTD.
+     * @param sysId the system identifer
+     */
     public void setSysId( String sysId )
     {
         this.sysId = sysId;

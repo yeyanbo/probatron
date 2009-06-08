@@ -110,14 +110,19 @@ public class ContentHandler implements ErrorHandler, org.xml.sax.ContentHandler,
     private boolean isInDtd;
     private boolean dtdStarted;
 
-
+    /**
+     * Constructor for normal use.
+     * @param inst the XML instance whose content is to be handled
+     */
     public ContentHandler( Instance inst )
     {
         instance = inst;
         this.locator = null;
     }
 
-
+    /**
+     * 
+     */
     public void setDocumentLocator( Locator locator )
     {
         this.locator = locator;
@@ -483,6 +488,10 @@ public class ContentHandler implements ErrorHandler, org.xml.sax.ContentHandler,
     ////////  XMLTOOL-SPECIFIC METHODS  /////////
     //////////////////////////////////////////
 
+    /**
+     * Receives notification that operations required before a 
+     * parse commences are allowed.
+     */
     public void preParse()
     {
         Extension se = null;
@@ -501,7 +510,10 @@ public class ContentHandler implements ErrorHandler, org.xml.sax.ContentHandler,
         }
     }
 
-
+    /**
+     * Receives notification that operations required after a 
+     * parse is complete are allowed.
+     */
     public void postParse()
     {
         Extension se = null;
@@ -523,7 +535,7 @@ public class ContentHandler implements ErrorHandler, org.xml.sax.ContentHandler,
 
 
     /**
-     * Add a handler add-in for this session.
+     * Adds handler plug-ins for this session.
      */
     public void registerExtensions( Extension[] exts )
     {
@@ -532,7 +544,8 @@ public class ContentHandler implements ErrorHandler, org.xml.sax.ContentHandler,
 
 
     /**
-     * @return A persistent error locator object.
+     * Creates a clone of the current SAX locator.
+     * @return A persistent error locator object
      */
     public LocatorImpl cloneLocator()
     {
@@ -590,7 +603,10 @@ public class ContentHandler implements ErrorHandler, org.xml.sax.ContentHandler,
         instance().addParseMessage( e, Constants.ERROR_TYPE_WARNING );
     }
 
-
+    /**
+     * Accesses the extensions registered with this handler.
+     * @return an array of registered {@link Extension}s
+     */
     public Extension[] getRegisteredExtensions()
     {
         return this.extensions;

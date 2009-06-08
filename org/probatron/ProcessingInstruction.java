@@ -22,21 +22,11 @@ package org.probatron;
 
 
 /**
- * 
- * 
- * @author andrews
- * @version $Revision: 1.1 $
- * 
- * @version $Id: ProcessingInstruction.java,v 1.1 2009/02/11 08:52:55 GBDP\andrews Exp $
- * 
- */
-
-/**
- * Represents a processing instruction node test, as part of an <code>XPathLocator</code>.
- * Note that no distinction is currently made between unnamed PIs and named PIs
+ * <p>Represents a processing instruction node test, as part of an <code>XPathLocator</code>.</p>
+ * <p>Note that no distinction is currently made between unnamed PIs and named PIs
  * (i.e. those with a named target), since for location purposes the predicate
  * is sufficient. The implementation of explicit targets may improve 
- * performance in interpretative tools.
+ * performance in interpretative tools.</p>
  */
 public class ProcessingInstruction extends NodeTest
 {

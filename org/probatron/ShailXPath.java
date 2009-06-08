@@ -47,6 +47,10 @@ import com.griffinbrown.shail.expr.ShailXPathFactory;
 import com.griffinbrown.shail.util.ShailList;
 import com.griffinbrown.shail.util.ShailSingletonList;
 
+/**
+ * An XPath expression for evaluation against an XML document represented by the Shail document model.  
+ * 
+ */
 public class ShailXPath implements XPath
 {
     /** Original expression text. */
@@ -133,13 +137,21 @@ public class ShailXPath implements XPath
     }
 
 
+    /**
+     * Evaluates this expression against the context node passed in. 
+     * @param context the context node
+     * @return an object representing the results of the evaluation
+     * @throws JaxenException if the expression cannot be evaluated
+     * @see #evaluate(Object)
+     */
     public Object evaluate( int context ) throws JaxenException
     {
         return evaluate( new ShailSingletonList( context ) );
     }
 
 
-    /** Select all nodes that are selected by this XPath
+    /** 
+     * Select all nodes that are selected by this XPath
      *  expression. If multiple nodes match, multiple nodes
      *  will be returned. Nodes will be returned
      *  in document-order, as defined by the XPath
@@ -163,7 +175,14 @@ public class ShailXPath implements XPath
         return selectNodesForContext( context );
     }
 
-
+    /**
+     * Selects the nodes matched by this XPath according to the context node passed in.
+     * @param node the context node
+     * @return the node-set of all items selected
+     *          by this XPath expression
+     * @throws JaxenException if an XPath error occurs during expression evaluation
+     * @see #selectNodes(Object)
+     */
     public List selectNodes( int node ) throws JaxenException
     {
         Context context = getContext( node );
@@ -553,7 +572,11 @@ public class ShailXPath implements XPath
         return fullContext;
     }
 
-
+    /**
+     * Retrieves the evaluation context for the node passed in.
+     * @param node the context node
+     * @return evaluation <code>Context</code> object for this expression
+     */
     protected Context getContext( int node )
     {
         Context fullContext = new Context( getContextSupport() );
@@ -717,7 +740,8 @@ public class ShailXPath implements XPath
             throw new JaxenException( e );
         }
     }
-    
+
+
     void setXPath( XPathExpr expr )
     {
         this.xpath = expr;

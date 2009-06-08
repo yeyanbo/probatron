@@ -62,8 +62,7 @@ public abstract class NodeTest
      * instantiated (e.g. CDATA or EntityReference nodes). 
      * 
      * @param node
-     * @return an instance of a class implementing the 
-     * com.griffinbrown.xmltool.qa.NodeTest interface, or <code>null</code> if 
+     * @return an node test object, or <code>null</code> if 
      * the node type is not one of:
      * <ul>
      * <li>org.w3c.dom.Node.ATTRIBUTE_NODE</li>
@@ -107,7 +106,9 @@ public abstract class NodeTest
 
 
     /**
-     * @return the positional predicate for this <code>NodeTest</code>.
+     * Accesses the positional predicate.
+     * @return the positional predicate for this <code>NodeTest</code> in the format <code>[<i>n</i>]</code>,
+     * or the empty string if the predicate value is <tt>-1</tt>
      */
     public String getPredicate()
     {
@@ -116,12 +117,16 @@ public abstract class NodeTest
 
 
     /**
+     * Gets a representation suitable for inclusion in an XPath locator. 
      * @return a string representation of this <code>NodeTest</code>, suitable 
      * for inclusion in an <code>XPathLocator</code> string.
      */
     public abstract String getValue();
 
-
+    /**
+     * Sets the positional predicate.
+     * @param predicate the positional predicate
+     */
     public void setPredicate( int predicate )
     {
         this.predicate = predicate;

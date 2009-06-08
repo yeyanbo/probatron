@@ -111,7 +111,7 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
 /**
- * <p>Class to represent an XMLTool extension.</p>
+ * <p>Class to represent an application extension.</p>
  * <p>This abstract class contains methods to mirror all those available to SAX2 handlers and extended handlers.</p>
  * <p>All client extensions must be based on this class.</p>
  */
@@ -265,7 +265,7 @@ public abstract class Extension
 	 */
 	public abstract void startCDATA() ;
 	/**
-	 * See org.xml.sax.ext.LexicalHandler
+	 * See {@link org.xml.sax.ext.LexicalHandler}
 	 */
 	public abstract void startDTD(java.lang.String name, java.lang.String publicId, java.lang.String systemId);
 	/**
@@ -290,6 +290,10 @@ public abstract class Extension
 	 */
 	public abstract Session getSession();
     
+	/**
+	 * Notifies this extension of a parse-related message.
+	 * @param m the parse-related message
+	 */
     public abstract void parseMessage( ParseMessage m ); 
 
 }

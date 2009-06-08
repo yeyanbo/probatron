@@ -22,7 +22,7 @@ package org.probatron;
 
 
 /**
- * 
+ * A generic node as part of an XPath locator.
  * 
  * 
  * @author andrews

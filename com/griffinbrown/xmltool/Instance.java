@@ -101,7 +101,7 @@ import org.xml.sax.XMLFilter;
 import com.griffinbrown.xmltool.dtd.Dtd;
 import com.thaiopensource.validate.ValidationDriver;
 
-/*
+/**
  * Class to represent an XML instance.
  */
 public class Instance extends XmlConstruct
@@ -184,7 +184,9 @@ public class Instance extends XmlConstruct
         session.parser().parse( this.sysId );
     }
 
-
+    /**
+     * Parses the instance against the governing DTD or schema. 
+     */
     public void parse()
     {
         if( validator == null ) //fragile
@@ -325,7 +327,7 @@ public class Instance extends XmlConstruct
 
 
     /**
-     * Parses an instance using the XMLFilter specified.
+     * Parses an instance using the {@link XMLFilter} specified.
      * @param filter
      */
     public void parse( XMLFilter filter )
@@ -442,7 +444,8 @@ public class Instance extends XmlConstruct
 
 
     /**
-     * @return The string of the normalized DTD as an internal subset.
+     * Accesses the string of the normalized DTD as an internal subset.
+     * @return the string of the normalized DTD as an internal subset
      */
     public String normalizedIntDtd( Dtd d, int emissionType )
     {
@@ -455,7 +458,8 @@ public class Instance extends XmlConstruct
 
 
     /**
-     * @return The string of the normalized DTD as an external subset.
+     * the string of the normalized DTD as an external subset.
+     * @return the string of the normalized DTD as an external subset
      */
     public String normalizedExtDtd( Dtd d, int emissionType )
     {
@@ -465,7 +469,8 @@ public class Instance extends XmlConstruct
 
 
     /**
-     * @return The doctype declaration.
+     * Accesses the <code>DOCTYPE</code> declaration for this instance.
+     * @return the doctype declaration
      * @param isSubsetInternal whether the declaration will appear before an internal subset.
      */
     public String getDoctypeDecl( boolean isSubsetInternal )
@@ -533,6 +538,7 @@ public class Instance extends XmlConstruct
 
 
     /**
+     * Accesses the XML declaration for this instance.
      * @return the XML declaration for this instance
      */
     public String getXmlDecl( String version, String encoding, boolean standalone )
@@ -560,7 +566,7 @@ public class Instance extends XmlConstruct
      }*/
 
     /**
-     * @return The current containing instance. Overridden to return <code>null</code>, since
+     * @return the current containing instance. Overridden to return <code>null</code>, since
      * this is the outermost container.
      */
     public Instance containingInstance()
@@ -570,7 +576,8 @@ public class Instance extends XmlConstruct
 
 
     /**
-     * @return The local name of the document element.
+     * Access the name of the document element.
+     * @return the local name of the document element, or <code>null</code> if this document has none 
      */
     public String docType()
     {
@@ -591,7 +598,8 @@ public class Instance extends XmlConstruct
 
 
     /**
-     * Returns the absolute URI of the instance, resolved against ???
+     * Accesses the absolute URI of the instance.
+     * In this implementation, the resolution base is the current working directory.
      */
     public String getResolvedURI()
     {
@@ -619,7 +627,8 @@ public class Instance extends XmlConstruct
 
 
     /**
-     * @return This instance's governing DTD; <code>null</code> if there is none.
+     * Accesses the governing DTD for this instance.
+     * @return this instance's governing DTD; <code>null</code> if there is none
      */
     public Dtd dtd()
     {
@@ -628,7 +637,11 @@ public class Instance extends XmlConstruct
 
 
     /**
-     * Adds a new ParseError to this Instance.
+     * Adds a new parse-related message to this instance.
+     * @param msg the message to add
+     * @param loc the locator for the message
+     * @param type the message type
+     * @return
      */
     public ParseMessage addParseMessage( String msg, Locator loc, String type )
     {
@@ -640,7 +653,10 @@ public class Instance extends XmlConstruct
 
 
     /**
-     * Adds a new ParseError to this Instance.
+     * Adds a new parse-related message to this instance.
+     * @param spe the exception relating to this message
+     * @param type the message type
+     * @return
      */
     protected ParseMessage addParseMessage( SAXParseException spe, String type )
     {
@@ -673,7 +689,7 @@ public class Instance extends XmlConstruct
 
     /**
      * Accesses the parsing errors generated for this instance.
-     * @return iterator over the parse errors
+     * @return list of the parse errors
      */
     public List parseErrors()
     {
@@ -741,7 +757,10 @@ public class Instance extends XmlConstruct
 
     /**
      * Returns the parsing errors in format specified.
-     * @return a string of parsing errors in the format specified
+     * @return a string of parse errors in the format specified
+     * @see Constants#ERRORS_AS_TEXT
+     * @see Constants#ERRORS_AS_XML
+     * @see Constants#ERRORS_AS_HTML
      */
     public String parseErrors( int format )
     {
@@ -812,7 +831,10 @@ public class Instance extends XmlConstruct
         return dtd;
     }
 
-
+    /**
+     * Accesses the instance as normalized XML.
+     * @return the instance as normalized XML
+     */
     public StringBuffer normalized()
     {
         return this.normal;
@@ -820,7 +842,10 @@ public class Instance extends XmlConstruct
 
     private QueryHandler qaHandler;
 
-
+    /**
+     * Sets the query handler for this instance.
+     * @param qaHandler the query handler
+     */
     public void setQueryHandler( QueryHandler qaHandler )
     {
         this.qaHandler = qaHandler;
