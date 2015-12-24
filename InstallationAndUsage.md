@@ -1,0 +1,36 @@
+# Installation #
+
+  1. Ensure you have a Java runtime installed, version 1.4 or later. Runtimes may be downloaded e.g. from http://java.com.
+  1. Download the binary distribution and unzip the file `probatron.jar` to a suitable location.
+  1. Assuming you can invoke Java using the command `java`, at the command line type:
+```
+   java -jar path/to/probatron.jar
+```
+> You should see a copyright statement followed by this usage hint:
+```
+   usage: java org.probatron.Probatron [Schematron-schema] [XML-document]
+```
+
+
+# Usage #
+
+  1. Pass a Schematron schema and an XML document to Probatron like so:
+```
+   java -jar path/to/probatron.jar mySchema.sch myInstance.xml
+```
+> The results of the process should appear at standard output and can be redirected in the usual ways. By default a plain-text report is emitted. Processing errors appear at standard error.
+
+## Configuration ##
+
+System properties can be used to configure how the application behaves.
+Set a system property or properties like so:
+```
+   java -Dmy-system-property=value -jar probatron.jar ...
+```
+
+Available properties are set out in the table below.
+
+|Property|Values|Function|
+|:-------|:-----|:-------|
+|`error-format`|`xml`, `text`|Switches between plain-text output and SVRL report. The default value is `text`.|
+|`relaxng-schema-location`|a URI |Switches on validation against the `RELAX NG` schema at the specified location, resolved against the current working directory|
